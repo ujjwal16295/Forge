@@ -23,7 +23,7 @@ import {
   Settings,
   X
 } from 'lucide-react';
-
+//feature
 const ForgeFeatures = () => {
   const [activeCategory, setActiveCategory] = useState('core');
   const [scrollY, setScrollY] = useState(0);
