@@ -37,151 +37,96 @@ const ForgeFeatures = () => {
 
   const featureCategories = {
     core: {
-      title: "Core Refactoring",
-      description: "Essential code transformation and optimization tools",
+      title: "AI-Powered Refactoring",
+      description: "Complete file replacement and code transformation using Gemini AI",
       color: "blue",
       features: [
         {
-          icon: Target,
-          title: "Variable & Function Naming Convention Fixer",
-          description: "Ensures all variable and function names follow consistent naming conventions (camelCase, snake_case, PascalCase)",
-          benefits: ["Improved code readability", "Consistent naming patterns", "Better maintainability"]
-        },
-        {
-          icon: Layers,
-          title: "Code Modularization",
-          description: "Breaks large, monolithic code blocks into smaller, reusable, and more organized modules or functions",
-          benefits: ["Enhanced maintainability", "Better code organization", "Easier scaling and understanding"]
-        },
-        {
           icon: RefreshCw,
-          title: "Code Reusability Improvements",
-          description: "Refactors repetitive code into reusable functions or utilities, reducing duplication",
-          benefits: ["DRY principle compliance", "Reduced code duplication", "Improved maintainability"]
+          title: "Complete File Replacement",
+          description: "Rewrites entire codebases while preserving unselected files using Gemini 2.5 Flash",
+          benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements"]
+        },
+        {
+          icon: Target,
+          title: "React/Next.js Project Detection",
+          description: "Automatically detects and analyzes React and Next.js projects for targeted refactoring",
+          benefits: ["Framework-specific optimizations", "Automatic project analysis", "Targeted improvements"]
+        },
+        {
+          icon: FileText,
+          title: "File Selection with Limits",
+          description: "Modern web-based UI for selecting files with word count limits and progress tracking",
+          benefits: ["Controlled refactoring scope", "Resource management", "Real-time progress updates"]
         }
       ]
     },
     git: {
       title: "Git Integration",
-      description: "Safe and controlled code changes with full version control",
+      description: "Safe branch-based workflow with complete version control",
       color: "purple",
       features: [
         {
           icon: GitBranch,
-          title: "Diff Branch Creation",
-          description: "Automatically creates a separate diff branch whenever AI refactoring is applied for safe comparison",
-          benefits: ["Zero risk to main branch", "Easy change comparison", "Safe experimentation"]
-        },
-        {
-          icon: Eye,
-          title: "Change Review System",
-          description: "Compare AI-suggested changes against your original code before making any decisions",
-          benefits: ["Full control over changes", "Transparent modifications", "Informed decisions"]
+          title: "Branch-Based Refactoring",
+          description: "Creates separate branches for AI refactoring with safe comparison workflows",
+          benefits: ["Zero risk to main branch", "Safe experimentation", "Easy comparison"]
         },
         {
           icon: Merge,
-          title: "Merge Approval Workflow",
-          description: "Full control to either merge AI-suggested changes into main branch or reject them safely",
-          benefits: ["Developer-controlled integration", "Safe collaboration", "Risk mitigation"]
+          title: "Merge/Revert Capabilities",
+          description: "Full control to merge AI changes or revert with detailed commit management",
+          benefits: ["Complete control over changes", "Safe code management", "Detailed change tracking"]
         },
         {
-          icon: Undo2,
-          title: "Instant Rollback",
-          description: "Quick rollback option to revert any AI-applied refactorings with one click",
-          benefits: ["Quick error recovery", "Safe experimentation", "No permanent damage"]
+          icon: FileText,
+          title: "Commit Management",
+          description: "Detailed change summaries and commit tracking throughout the refactoring process",
+          benefits: ["Clear change documentation", "Comprehensive tracking", "Informed decisions"]
         }
       ]
     },
-    optimization: {
-      title: "Security Checks",
-      description: "Essential security scanning to identify common vulnerabilities",
+    security: {
+      title: "Security Features",
+      description: "Hardcoded secret detection and environment variable management",
       color: "green",
       features: [
         {
           icon: Shield,
-          title: "Hardcoded Secrets Detection",
-          description: "Detects hardcoded API keys, passwords, and other sensitive credentials in your code",
-          benefits: ["Enhanced security", "Prevents credential leaks", "Compliance support"]
-        },
-        {
-          icon: AlertTriangle,
-          title: "Injection Risk Detection",
-          description: "Identifies potential SQL injection and command injection vulnerabilities",
-          benefits: ["Prevents security exploits", "Safer database interactions", "Secure command execution"]
-        },
-        {
-          icon: Package,
-          title: "Insecure Dependencies Check",
-          description: "Scans for known vulnerable dependencies and insecure cryptography usage",
-          benefits: ["Secure dependency management", "Up-to-date security practices", "Reduced attack surface"]
-        },
-        {
-          icon: Import,
-          title: "Security Best Practices",
-          description: "Checks for HTTPS usage, input validation, and secure error handling practices",
-          benefits: ["Better security posture", "Industry best practices", "Reduced information disclosure"]
-        }
-      ]
-    },
-    documentation: {
-      title: "Additional Features",
-      description: "Supporting features that enhance the development experience",
-      color: "yellow",
-      features: [
-        {
-          icon: FileText,
-          title: "Code Analysis",
-          description: "Analyzes code structure to identify areas that would benefit from refactoring",
-          benefits: ["Better code understanding", "Targeted improvements", "Informed refactoring decisions"]
-        },
-        {
-          icon: BookOpen,
-          title: "Best Practice Suggestions",
-          description: "Provides suggestions based on coding best practices and conventions",
-          benefits: ["Improved code quality", "Industry standards compliance", "Learning opportunities"]
-        },
-        {
-          icon: RefreshCw,
-          title: "Continuous Improvement",
-          description: "Regularly updated security checks and refactoring patterns",
-          benefits: ["Stay current with threats", "Evolving best practices", "Ongoing code enhancement"]
-        },
-        {
-          icon: Target,
-          title: "Focused Refactoring",
-          description: "Targets specific improvement areas like naming, structure, and reusability",
-          benefits: ["Precise improvements", "Measurable results", "Systematic enhancement"]
-        }
-      ]
-    },
-    workflow: {
-      title: "Workflow Integration",
-      description: "Seamless integration with your development workflow",
-      color: "indigo",
-      features: [
-        {
-          icon: CheckCircle,
-          title: "Zero Disruption",
-          description: "Works quietly in the background without interrupting your VS Code workflow",
-          benefits: ["Seamless experience", "No learning curve", "Natural integration"]
-        },
-        {
-          icon: Users,
-          title: "Safe Development",
-          description: "Enables safe code improvements without breaking existing functionality or workflow",
-          benefits: ["Risk-free refactoring", "Confidence in changes", "Better code quality"]
+          title: "Hardcoded Secret Extraction",
+          description: "Automatically detects and extracts hardcoded secrets from your codebase",
+          benefits: ["Enhanced security", "Prevents credential leaks", "Automated detection"]
         },
         {
           icon: Settings,
-          title: "Developer-Driven",
-          description: "All AI suggestions require explicit developer approval with clear accept/reject options",
-          benefits: ["Complete control", "Transparent process", "No unwanted changes"]
+          title: "Environment Variable Setup",
+          description: "Automatically sets up environment variables for extracted secrets",
+          benefits: ["Secure credential management", "Automated setup", "Best practice compliance"]
+        }
+      ]
+    },
+    management: {
+      title: "Project Management",
+      description: "API management, dependency cleanup, and error handling",
+      color: "yellow",
+      features: [
+        {
+          icon: Package,
+          title: "Dependency Analysis & Cleanup",
+          description: "Removes unused npm packages and analyzes project dependencies",
+          benefits: ["Cleaner project structure", "Reduced bundle size", "Better performance"]
         },
         {
-          icon: Zap,
-          title: "Quick Improvements",
-          description: "Rapidly applies consistent naming conventions and modularization improvements",
-          benefits: ["Faster code cleanup", "Consistent standards", "Immediate benefits"]
+          icon: Code,
+          title: "API Key Management",
+          description: "Complete API key management with usage tracking and rate limiting",
+          benefits: ["Secure API usage", "Usage monitoring", "Rate limit protection"]
+        },
+        {
+          icon: AlertTriangle,
+          title: "Comprehensive Error Handling",
+          description: "Detailed user feedback and robust error handling throughout the process",
+          benefits: ["Better user experience", "Clear error messages", "Reliable operation"]
         }
       ]
     }
