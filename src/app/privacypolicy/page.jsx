@@ -209,6 +209,8 @@ const PrivacyPolicy = () => {
               <li>Through our website contact form</li>
               <li>Via our social media channels (Instagram, Twitter)</li>
               <li>Through the feedback form on our website</li>
+              <li>              newujjwalpatel@gamil.com
+</li>
             </ul>
           </div>
 

@@ -50,6 +50,8 @@ export const Footer = () => {
               <div className="space-y-2 text-gray-400">
                 <a href="/#feedback"               onClick={(e)=>{scrollToFeatures(e,"feedback")}} className="hover:text-white cursor-pointer transition-colors block">Feedback Form</a>
                 <a href="/#contact-us" onClick={(e)=>{scrollToFeatures(e,"contact")}} className="hover:text-white cursor-pointer transition-colors block">Contact</a>
+                <a href="/termsofservice" className="hover:text-white cursor-pointer transition-colors block">Terms of Service</a>
+                <a href="/privacypolicy"  className="hover:text-white cursor-pointer transition-colors block">Privacy Policy</a>
               </div>
             </div>
             <div>

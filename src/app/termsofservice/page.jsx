@@ -168,7 +168,7 @@ const TermsOfService = () => {
           <div className="p-8 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl border border-blue-500/30 text-center">
             <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
             <p className="text-gray-300 leading-relaxed">
-              If you have any questions about these Terms of Service, please contact us through our website or reach out via our social media channels.
+              If you have any questions about these Terms of Service, please contact us through newujjwalpatel@gamil.com or reach out via our social media channels.
             </p>
           </div>
 
