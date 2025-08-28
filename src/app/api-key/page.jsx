@@ -313,31 +313,34 @@ const ApiKeyPage = () => {
                   </div>
                   
                   <div className="flex gap-3">
-                    <button
-                      onClick={() => copyToClipboard(apiKeyData.showingRealKey ? (apiKeyData.realApiKey || apiKeyData.api_key) : apiKeyData.api_key)}
-                      className="flex items-center bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 px-4 py-2 rounded-lg transition-colors"
-                    >
-                      {copySuccess ? (
-                        <CheckCircle className="w-4 h-4 text-green-400 mr-2" />
-                      ) : (
-                        <Copy className="w-4 h-4 mr-2" />
-                      )}
-                      {copySuccess ? 'Copied!' : (apiKeyData.showingRealKey ? 'Copy Key' : 'Copy Masked Key')}
-                    </button>
-                    
-                    <button
-                      onClick={deleteApiKey}
-                      disabled={isDeleting}
-                      className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
-                    >
-                      {isDeleting ? (
-                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                      ) : (
-                        <Trash2 className="w-4 h-4 mr-2" />
-                      )}
-                      {isDeleting ? 'Deleting...' : 'Delete Key'}
-                    </button>
-                  </div>
+  {/* Only show copy button when showing real key */}
+  {apiKeyData.showingRealKey && (
+    <button
+      onClick={() => copyToClipboard(apiKeyData.realApiKey || apiKeyData.api_key)}
+      className="flex items-center bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 px-4 py-2 rounded-lg transition-colors"
+    >
+      {copySuccess ? (
+        <CheckCircle className="w-4 h-4 text-green-400 mr-2" />
+      ) : (
+        <Copy className="w-4 h-4 mr-2" />
+      )}
+      {copySuccess ? 'Copied!' : 'Copy Key'}
+    </button>
+  )}
+  
+  <button
+    onClick={deleteApiKey}
+    disabled={isDeleting}
+    className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
+  >
+    {isDeleting ? (
+      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+    ) : (
+      <Trash2 className="w-4 h-4 mr-2" />
+    )}
+    {isDeleting ? 'Deleting...' : 'Delete Key'}
+  </button>
+</div>
                   
                   {/* Additional info for masked keys */}
                   {!apiKeyData.showingRealKey && (
@@ -426,17 +429,6 @@ const ApiKeyPage = () => {
                 </button>
               </div>
             )}
-          </div>
-
-          {/* API Documentation Link */}
-          <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-2xl border border-gray-700/50 p-8 text-center">
-            <h3 className="text-xl font-bold mb-4">Ready to integrate?</h3>
-            <p className="text-gray-300 mb-6">
-              Check out our API documentation to start building amazing applications with Forge.
-            </p>
-            <button className="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg transition-colors">
-              View API Docs
-            </button>
           </div>
         </div>
       </div>
