@@ -55,7 +55,7 @@ const ApiKeyPage = () => {
 
   const fetchApiKeyData = async (email) => {
     try {
-      const response = await fetch('https://smart-code-converter-backend.onrender.com/api/get-user-api-info', {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/get-user-api-info', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const ApiKeyPage = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('https://smart-code-converter-backend.onrender.com/api/generate-api-key', {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/generate-api-key', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const ApiKeyPage = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('https://smart-code-converter-backend.onrender.com/api/delete-api-key', {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/delete-api-key', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

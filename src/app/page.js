@@ -11,7 +11,7 @@ import { Footer } from '@/components/Footer';
 
 const ForgeHomepage = () => {
   const [scrollY, setScrollY] = useState(0);
-  const API_BASE_URL = 'https://smart-code-converter-backend.onrender.com';
+  const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);

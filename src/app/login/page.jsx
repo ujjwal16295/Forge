@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase';
 
 const ForgeLoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const API_BASE_URL = 'https://smart-code-converter-backend.onrender.com';
+  const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
   // Check for existing session on component mount
   useEffect(() => {
