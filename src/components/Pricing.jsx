@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Star, Zap, Crown, ArrowRight } from 'lucide-react';
+import { Check, Star, Zap, ArrowRight } from 'lucide-react';
 
 const Pricing = () => {
   return (
@@ -26,7 +26,7 @@ const Pricing = () => {
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
             {/* Free Plan - Available */}
             <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 relative">
@@ -52,10 +52,6 @@ const Pricing = () => {
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
                     <span>Git branch creation</span>
                   </div>
-                  {/* <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>Email support</span>
-                  </div> */}
                 </div>
                 
                 <a 
@@ -115,47 +111,6 @@ const Pricing = () => {
                 </button>
               </div>
             </div>
-
-            {/* Enterprise Plan - Coming Soon */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 relative">
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-2">
-                  <Crown className="w-6 h-6 text-yellow-400 mr-2" />
-                  <h3 className="text-2xl font-bold">Enterprise</h3>
-                </div>
-                <div className="text-4xl font-bold mb-1">
-                  <span className="text-gray-400">Custom</span>
-                </div>
-                <p className="text-gray-400 mb-8">For large organizations</p>
-                
-                <div className="space-y-4 mb-8 text-left">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                    <span>Everything in Pro</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                    <span>On-premise deployment</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                    <span>Custom integrations</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                    <span>Dedicated support</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
-                    <span>SLA guarantee</span>
-                  </div>
-                </div>
-                
-                <button className="w-full bg-gray-700 cursor-not-allowed px-6 py-3 rounded-lg font-semibold text-gray-400">
-                  Coming Soon
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* FAQ Section */}
@@ -163,29 +118,15 @@ const Pricing = () => {
             <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
             
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {/* <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">What counts as a code review?</h4>
-                <p className="text-gray-400 text-sm">Each API call to analyze and refactor your code counts as one review, regardless of file size.</p>
-              </div> */}
-              
               <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">When will Pro and Enterprise be available?</h4>
-                <p className="text-gray-400 text-sm">We're actively developing these plans. Join our free tier to be notified when they launch!</p>
+                <h4 className="font-semibold mb-2">When will Pro be available?</h4>
+                <p className="text-gray-400 text-sm">We're actively developing the Pro plan. Join our free tier to be notified when it launches!</p>
               </div>
               
-              {/* <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">Can I upgrade later?</h4>
-                <p className="text-gray-400 text-sm">Absolutely! Start free and upgrade seamlessly when our paid plans become available.</p>
-              </div> */}
               <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
                 <h4 className="font-semibold mb-2">What programming languages are supported?</h4>
-                <p className="text-gray-400 text-sm">Forge supports currenlty Nextjs and Reactjs.</p>
+                <p className="text-gray-400 text-sm">Forge supports currently Next.js and React.js.</p>
               </div>
-              
-              {/* <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">What programming languages are supported?</h4>
-                <p className="text-gray-400 text-sm">Forge supports all major programming languages including JavaScript, Python, Java, C++, and more.</p>
-              </div> */}
             </div>
           </div>
         </div>
