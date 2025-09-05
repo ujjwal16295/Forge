@@ -8,6 +8,7 @@ import ContactUs from '@/components/ContactUs';
 import Pricing from '@/components/Pricing';
 import FeedbackForm from '@/components/Feedback';
 import { Footer } from '@/components/Footer';
+import { HowToUse } from '@/components/HowToUse';
 
 const ForgeHomepage = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -153,6 +154,9 @@ const ForgeHomepage = () => {
       {/* Features Section */}
       <section id="features">
   <ForgeFeatures />
+</section>
+      <section id="howtouse">
+  <HowToUse />
 </section>
 <section id='pricing'>
   <Pricing/>     

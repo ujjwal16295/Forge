@@ -125,7 +125,8 @@ export const Header = () => {
               Features
             </a>
             <a 
-              href="/how-to-use" 
+              href="/#howtouse" 
+              onClick={(e)=>{scrollToFeatures(e,"howtouse")}}
               className="hover:text-blue-400 transition-colors cursor-pointer"
             >
               How to Use
