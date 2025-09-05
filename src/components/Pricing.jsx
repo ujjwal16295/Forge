@@ -78,8 +78,8 @@ const Pricing = () => {
                   <h3 className="text-2xl font-bold">Pro</h3>
                 </div>
                 <div className="text-4xl font-bold mb-1">
-                  <span className="text-gray-400">$</span>
-                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">--</span>
+                  <span className="text-white">$</span>
+                  <span className="bg-gradient-to-r text-white bg-clip-text">5</span>
                 </div>
                 <p className="text-gray-400 mb-8">For growing development teams</p>
                 
