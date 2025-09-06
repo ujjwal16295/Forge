@@ -1,7 +1,173 @@
-import React from 'react';
-import { Check, Star, Zap, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Check, Star, Zap, ArrowRight, Crown } from 'lucide-react';
+import { supabase } from '../lib/supabase'; // Adjust path as needed
 
 const Pricing = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentPlan, setCurrentPlan] = useState('free'); // Default to free
+  const [fetchingPlan, setFetchingPlan] = useState(false);
+  
+  // Control variable for Pro plan availability
+  const isProPlanAvailable = false; // Change this to true when Pro plan is ready
+
+  useEffect(() => {
+    // Get initial session
+    const getSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error('Error getting session:', error);
+        } else {
+          setUser(session?.user || null);
+          if (session?.user) {
+            await fetchUserPlan(session.user.email);
+          }
+        }
+      } catch (error) {
+        console.error('Session error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user || null);
+      if (session?.user) {
+        await fetchUserPlan(session.user.email);
+      } else {
+        setCurrentPlan('free'); // Reset to free when logged out
+      }
+      setLoading(false);
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, []);
+
+  const fetchUserPlan = async (email) => {
+    if (!email) return;
+    
+    setFetchingPlan(true);
+    try {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/get-user-api-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: email }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        setCurrentPlan(result.data.plan?.toLowerCase() || 'free');
+      } else {
+        setCurrentPlan('free'); // Default to free if no plan found
+      }
+    } catch (error) {
+      console.error('Error fetching user plan:', error);
+      setCurrentPlan('free'); // Default to free on error
+    } finally {
+      setFetchingPlan(false);
+    }
+  };
+
+  const handlePlanClick = (planType) => {
+    if (!user) {
+      // Redirect to login if user is not authenticated
+      window.location.href = '/login';
+      return;
+    }
+
+    if (currentPlan === planType) {
+      // User is already on this plan, do nothing
+      return;
+    }
+    
+    if (planType === 'free') {
+      // Redirect to API key page for free plan
+      window.location.href = '/api-key';
+    } else if (planType === 'pro' && isProPlanAvailable) {
+      // Handle pro plan subscription logic when available
+      console.log('Pro plan subscription logic here');
+      // Add your subscription logic here
+    }
+  };
+
+  const getPlanButton = (planType, planName) => {
+    const isCurrentPlan = currentPlan === planType;
+    const isPro = planType === 'pro';
+    
+    if (loading || fetchingPlan) {
+      return (
+        <div className="w-full bg-gray-700 px-6 py-3 rounded-lg font-semibold text-gray-400 animate-pulse">
+          Loading...
+        </div>
+      );
+    }
+
+    if (isCurrentPlan) {
+      return (
+        <div className="w-full bg-green-600/20 border border-green-500/30 px-6 py-3 rounded-lg font-semibold text-green-400 flex items-center justify-center">
+          <Check className="w-4 h-4 mr-2" />
+          You're currently on this plan
+        </div>
+      );
+    }
+
+    if (isPro && !isProPlanAvailable) {
+      return (
+        <button 
+          onClick={() => handlePlanClick(planType)}
+          className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+            !user 
+              ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white transform hover:scale-105 cursor-pointer'
+              : 'bg-gray-700 cursor-not-allowed text-gray-400'
+          }`}
+          disabled={user}
+        >
+          {!user ? 'Get Pro Plan' : 'Coming Soon'}
+        </button>
+      );
+    }
+
+    const buttonClass = isPro 
+      ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500'
+      : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500';
+
+    return (
+      <button 
+        onClick={() => handlePlanClick(planType)}
+        className={`w-full ${buttonClass} px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center group`}
+      >
+        {isPro ? 'Upgrade to Pro' : 'Get Started Free'}
+        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+      </button>
+    );
+  };
+
+  const getPlanCardClass = (planType) => {
+    const isCurrentPlan = currentPlan === planType;
+    const isPro = planType === 'pro';
+    
+    let baseClass = "bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 relative";
+    
+    if (isCurrentPlan) {
+      baseClass += " border-2 border-green-500/50 ring-2 ring-green-500/20";
+    } else if (isPro) {
+      baseClass += " border border-purple-500/30 transform scale-105";
+    } else {
+      baseClass += " border border-gray-700";
+    }
+    
+    return baseClass;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
       <section className="py-20 px-6 relative">
@@ -28,8 +194,17 @@ const Pricing = () => {
           {/* Pricing Cards */}
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
-            {/* Free Plan - Available */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 relative">
+            {/* Free Plan */}
+            <div className={getPlanCardClass('free')}>
+              {currentPlan === 'free' && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 rounded-full text-sm font-semibold flex items-center">
+                    <Crown className="w-4 h-4 mr-1" />
+                    Current Plan
+                  </div>
+                </div>
+              )}
+              
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-2">Free</h3>
                 <div className="text-4xl font-bold mb-1">$0</div>
@@ -54,23 +229,28 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <a 
-                  href="/api-key"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center group"
-                >
-                  Get Started Free
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </a>
+                {getPlanButton('free', 'Free')}
               </div>
             </div>
 
-            {/* Pro Plan - Coming Soon */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-8 relative transform scale-105">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
-                  Coming Soon
+            {/* Pro Plan */}
+            <div className={getPlanCardClass('pro')}>
+              {!isProPlanAvailable && currentPlan !== 'pro' && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
+                    Coming Soon
+                  </div>
                 </div>
-              </div>
+              )}
+              
+              {currentPlan === 'pro' && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 rounded-full text-sm font-semibold flex items-center">
+                    <Crown className="w-4 h-4 mr-1" />
+                    Current Plan
+                  </div>
+                </div>
+              )}
               
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
@@ -106,9 +286,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <button className="w-full bg-gray-700 cursor-not-allowed px-6 py-3 rounded-lg font-semibold text-gray-400">
-                  Coming Soon
-                </button>
+                {getPlanButton('pro', 'Pro')}
               </div>
             </div>
           </div>
