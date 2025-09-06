@@ -1,15 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Check, Star, Zap, ArrowRight, Crown } from 'lucide-react';
+import { Check, Star, Zap, ArrowRight, Crown, Loader2, LogIn } from 'lucide-react';
 import { supabase } from '../lib/supabase'; // Adjust path as needed
+import { initializePaddle } from "@paddle/paddle-js";
 
 const Pricing = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPlan, setCurrentPlan] = useState('free'); // Default to free
   const [fetchingPlan, setFetchingPlan] = useState(false);
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
+  const [paddle, setPaddle] = useState();
   
   // Control variable for Pro plan availability
-  const isProPlanAvailable = false; // Change this to true when Pro plan is ready
+  const isProPlanAvailable = true; // Change this to true when Pro plan is ready
+
+  const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
+
+  // Initialize Paddle
+  useEffect(() => {
+    initializePaddle({
+      environment: "production", // Change to "sandbox" for testing
+      token: process.env.REACT_APP_PADDLE_CLIENT_TOKEN,
+      eventCallback: function(data) {
+        if (data.name === "checkout.completed") {
+          console.log("Checkout completed:", data);
+          // Handle successful checkout
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+        if (data.name === "checkout.closed") {
+          console.log("Checkout closed:", data);
+          // Reset loading state when checkout is closed
+          setUpgradeLoading(false);
+        }
+      }
+    }).then((paddleInstance) => setPaddle(paddleInstance));
+  }, []);
 
   useEffect(() => {
     // Get initial session
@@ -54,7 +81,7 @@ const Pricing = () => {
     
     setFetchingPlan(true);
     try {
-      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/get-user-api-info', {
+      const response = await fetch(`${API_BASE_URL}/api/get-user-api-info`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +104,64 @@ const Pricing = () => {
     }
   };
 
+  const handleUpgrade = async () => {
+    // Check if user is logged in
+    if (!user) {
+      alert('Please log in to upgrade to Pro plan.');
+      return;
+    }
+
+    if (!paddle) {
+      alert('Payment system not initialized. Please try again.');
+      return;
+    }
+  
+    setUpgradeLoading(true);
+    
+    try {
+      const userEmail = user.email;
+      
+      // Create subscription on backend
+      const response = await fetch(`${API_BASE_URL}/api/payment/create-subscription`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          userName: userEmail,
+          plan: 'monthly' 
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.message || 'Failed to create subscription');
+      }
+      
+      // Open Paddle checkout
+      paddle.Checkout.open({
+        items: [{ priceId: result.priceId, quantity: 1 }],
+        settings: {
+          displayMode: "overlay",
+          theme: "light",
+          successUrl: window.location.origin + "/api-key",
+        },
+        customData: {
+          userName: userEmail,
+          email: userEmail,
+          planType: 'pro'
+        }
+      });
+      
+      // Don't set loading to false here as we want to keep it disabled until payment completes or modal closes
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Payment failed. Please try again.');
+      setUpgradeLoading(false);
+    }
+  };
+
   const handlePlanClick = (planType) => {
     if (!user) {
       // Redirect to login if user is not authenticated
@@ -93,9 +178,8 @@ const Pricing = () => {
       // Redirect to API key page for free plan
       window.location.href = '/api-key';
     } else if (planType === 'pro' && isProPlanAvailable) {
-      // Handle pro plan subscription logic when available
-      console.log('Pro plan subscription logic here');
-      // Add your subscription logic here
+      // Handle pro plan subscription logic
+      handleUpgrade();
     }
   };
 
@@ -126,12 +210,32 @@ const Pricing = () => {
           onClick={() => handlePlanClick(planType)}
           className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
             !user 
-              ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white transform hover:scale-105 cursor-pointer'
+              ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white transform hover:scale-105 cursor-pointer flex items-center justify-center'
               : 'bg-gray-700 cursor-not-allowed text-gray-400'
           }`}
           disabled={user}
         >
-          {!user ? 'Get Pro Plan' : 'Coming Soon'}
+          {!user ? (
+            <>
+              <LogIn className="w-4 h-4 mr-2" />
+              Login to Get Pro
+            </>
+          ) : (
+            'Coming Soon'
+          )}
+        </button>
+      );
+    }
+
+    // Show loading state when upgrade is in progress
+    if (isPro && upgradeLoading) {
+      return (
+        <button 
+          className="w-full bg-gradient-to-r from-purple-400 to-pink-400 cursor-not-allowed px-6 py-3 rounded-lg font-semibold flex items-center justify-center"
+          disabled
+        >
+          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+          Processing...
         </button>
       );
     }
@@ -145,8 +249,17 @@ const Pricing = () => {
         onClick={() => handlePlanClick(planType)}
         className={`w-full ${buttonClass} px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center group`}
       >
-        {isPro ? 'Upgrade to Pro' : 'Get Started Free'}
-        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+        {!user && isPro ? (
+          <>
+            <LogIn className="w-4 h-4 mr-2" />
+            Login to Upgrade
+          </>
+        ) : (
+          <>
+            {isPro ? 'Upgrade to Pro' : 'Get Started Free'}
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </>
+        )}
       </button>
     );
   };
@@ -186,9 +299,29 @@ const Pricing = () => {
               <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Plan</span>
             </h2>
             
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
               Start free and scale as your team grows. All plans include our core AI code review features.
             </p>
+
+            {/* Authentication Status Indicator */}
+            {!loading && (
+              <div className="flex justify-center mb-8">
+                {user ? (
+                  <div className="bg-green-900/50 border border-green-500/30 text-green-400 px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Logged in as {user.email}</span>
+                    {currentPlan === 'pro' && (
+                      <span className="bg-purple-500 text-white px-2 py-1 rounded-full text-xs ml-2">PRO</span>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-blue-900/50 border border-blue-500/30 text-blue-400 px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2">
+                    <LogIn className="w-4 h-4" />
+                    <span>Login required to upgrade to Pro</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Pricing Cards */}
@@ -297,13 +430,13 @@ const Pricing = () => {
             
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">When will Pro be available?</h4>
-                <p className="text-gray-400 text-sm">We're actively developing the Pro plan. Join our free tier to be notified when it launches!</p>
+                <h4 className="font-semibold mb-2">Can I cancel anytime?</h4>
+                <p className="text-gray-400 text-sm">Yes! You can cancel your Pro subscription at any time. You'll continue to have access until the end of your billing period.</p>
               </div>
               
               <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
                 <h4 className="font-semibold mb-2">What programming languages are supported?</h4>
-                <p className="text-gray-400 text-sm">Forge supports currently Next.js and React.js.</p>
+                <p className="text-gray-400 text-sm">Forge supports currently Next.js and React.js with more languages coming soon!</p>
               </div>
             </div>
           </div>

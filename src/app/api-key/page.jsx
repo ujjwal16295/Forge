@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Key, Copy, Trash2, Shield, Eye, EyeOff, RefreshCw, AlertCircle, CheckCircle, User, Crown, Zap } from 'lucide-react';
+import { Key, Copy, Trash2, Shield, Eye, EyeOff, RefreshCw, AlertCircle, CheckCircle, User, Crown, Zap, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 const ApiKeyPage = () => {
@@ -9,6 +9,7 @@ const ApiKeyPage = () => {
   const [apiKeyData, setApiKeyData] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isCanceling, setIsCanceling] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [copySuccess, setCopySuccess] = useState(false);
@@ -166,6 +167,47 @@ const ApiKeyPage = () => {
     }
   };
 
+  const cancelSubscription = async () => {
+    if (!user?.email) return;
+
+    if (!confirm('Are you sure you want to cancel your Pro subscription? You will continue to have access until the end of your billing period.')) {
+      return;
+    }
+
+    setIsCanceling(true);
+    setMessage({ type: '', text: '' });
+
+    try {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/subscription/cancel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName: user.email }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setMessage({ 
+          type: 'success', 
+          text: 'Subscription cancelled successfully. You will continue to have Pro access until the end of your billing period.' 
+        });
+        // Refresh the API key data to update the plan status
+        setTimeout(() => {
+          fetchApiKeyData(user.email);
+        }, 2000);
+      } else {
+        setMessage({ type: 'error', text: result.error || 'Failed to cancel subscription' });
+      }
+    } catch (error) {
+      console.error('Error canceling subscription:', error);
+      setMessage({ type: 'error', text: 'Network error occurred' });
+    } finally {
+      setIsCanceling(false);
+    }
+  };
+
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -260,15 +302,46 @@ const ApiKeyPage = () => {
                 </div>
               </div>
               
-              {apiKeyData && (
-                <div className={`bg-gradient-to-r ${getPlanColor(apiKeyData.plan)} rounded-lg px-4 py-2 border`}>
-                  <div className="flex items-center">
-                    {getPlanIcon(apiKeyData.plan)}
-                    <span className="ml-2 font-semibold capitalize">{apiKeyData.plan} Plan</span>
+              <div className="flex items-center gap-4">
+                {apiKeyData && (
+                  <div className={`bg-gradient-to-r ${getPlanColor(apiKeyData.plan)} rounded-lg px-4 py-2 border`}>
+                    <div className="flex items-center">
+                      {getPlanIcon(apiKeyData.plan)}
+                      <span className="ml-2 font-semibold capitalize">{apiKeyData.plan} Plan</span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+
+                {/* Cancel Subscription Button - Only show for Pro users */}
+                {apiKeyData && apiKeyData.plan?.toLowerCase() === 'pro' && (
+                  <button
+                    onClick={cancelSubscription}
+                    disabled={isCanceling}
+                    className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50 text-sm"
+                  >
+                    {isCanceling ? (
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <X className="w-4 h-4 mr-2" />
+                    )}
+                    {isCanceling ? 'Canceling...' : 'Cancel Subscription'}
+                  </button>
+                )}
+              </div>
             </div>
+
+            {/* Subscription Status Warning */}
+            {apiKeyData && apiKeyData.subscription_status === 'cancelled' && (
+              <div className="mb-6 p-4 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
+                <div className="flex items-center text-yellow-400">
+                  <AlertCircle className="w-5 h-5 mr-2" />
+                  <span className="font-semibold">Subscription Cancelled</span>
+                </div>
+                <p className="text-yellow-300 text-sm mt-1">
+                  Your Pro subscription has been cancelled. You will continue to have access to Pro features until the end of your billing period, after which your account will be downgraded to the Free plan.
+                </p>
+              </div>
+            )}
 
             {/* API Key Section */}
             {apiKeyData ? (
@@ -313,34 +386,34 @@ const ApiKeyPage = () => {
                   </div>
                   
                   <div className="flex gap-3">
-  {/* Only show copy button when showing real key */}
-  {apiKeyData.showingRealKey && (
-    <button
-      onClick={() => copyToClipboard(apiKeyData.realApiKey || apiKeyData.api_key)}
-      className="flex items-center bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 px-4 py-2 rounded-lg transition-colors"
-    >
-      {copySuccess ? (
-        <CheckCircle className="w-4 h-4 text-green-400 mr-2" />
-      ) : (
-        <Copy className="w-4 h-4 mr-2" />
-      )}
-      {copySuccess ? 'Copied!' : 'Copy Key'}
-    </button>
-  )}
-  
-  <button
-    onClick={deleteApiKey}
-    disabled={isDeleting}
-    className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
-  >
-    {isDeleting ? (
-      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-    ) : (
-      <Trash2 className="w-4 h-4 mr-2" />
-    )}
-    {isDeleting ? 'Deleting...' : 'Delete Key'}
-  </button>
-</div>
+                    {/* Only show copy button when showing real key */}
+                    {apiKeyData.showingRealKey && (
+                      <button
+                        onClick={() => copyToClipboard(apiKeyData.realApiKey || apiKeyData.api_key)}
+                        className="flex items-center bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 px-4 py-2 rounded-lg transition-colors"
+                      >
+                        {copySuccess ? (
+                          <CheckCircle className="w-4 h-4 text-green-400 mr-2" />
+                        ) : (
+                          <Copy className="w-4 h-4 mr-2" />
+                        )}
+                        {copySuccess ? 'Copied!' : 'Copy Key'}
+                      </button>
+                    )}
+                    
+                    <button
+                      onClick={deleteApiKey}
+                      disabled={isDeleting}
+                      className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
+                    >
+                      {isDeleting ? (
+                        <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      ) : (
+                        <Trash2 className="w-4 h-4 mr-2" />
+                      )}
+                      {isDeleting ? 'Deleting...' : 'Delete Key'}
+                    </button>
+                  </div>
                   
                   {/* Additional info for masked keys */}
                   {!apiKeyData.showingRealKey && (
