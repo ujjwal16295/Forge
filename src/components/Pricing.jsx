@@ -19,7 +19,7 @@ const Pricing = () => {
   // Initialize Paddle
   useEffect(() => {
     initializePaddle({
-      environment: "production", // Change to "sandbox" for testing
+      environment: "sandbox", // Change to "sandbox" for testing
       token: process.env.REACT_APP_PADDLE_CLIENT_TOKEN,
       eventCallback: function(data) {
         if (data.name === "checkout.completed") {
