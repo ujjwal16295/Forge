@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Key, Copy, Trash2, Shield, Eye, EyeOff, RefreshCw, AlertCircle, CheckCircle, User, Crown, Zap, X } from 'lucide-react';
+import { Key, Copy, Trash2, Shield, Eye, EyeOff, RefreshCw, AlertCircle, CheckCircle, User, Crown, Zap, X, RotateCcw, Clock } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 const ApiKeyPage = () => {
@@ -10,6 +10,7 @@ const ApiKeyPage = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
+  const [isReactivating, setIsReactivating] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [copySuccess, setCopySuccess] = useState(false);
@@ -170,7 +171,7 @@ const ApiKeyPage = () => {
   const cancelSubscription = async () => {
     if (!user?.email) return;
 
-    if (!confirm('Are you sure you want to cancel your Pro subscription? You will continue to have access until the end of your billing period.')) {
+    if (!confirm('Are you sure you want to cancel your Pro subscription? You will continue to have Pro access until the end of your current billing period, after which your account will be downgraded to the Free plan.')) {
       return;
     }
 
@@ -191,20 +192,61 @@ const ApiKeyPage = () => {
       if (result.success) {
         setMessage({ 
           type: 'success', 
-          text: 'Subscription cancelled successfully. You will continue to have Pro access until the end of your billing period.' 
+          text: result.message || 'Subscription cancelled successfully. You will continue to have Pro access until the end of your billing period.' 
         });
-        // Refresh the API key data to update the plan status
+        // Refresh the API key data to update the subscription status
         setTimeout(() => {
           fetchApiKeyData(user.email);
-        }, 2000);
+        }, 1000);
       } else {
-        setMessage({ type: 'error', text: result.error || 'Failed to cancel subscription' });
+        setMessage({ type: 'error', text: result.error || result.message || 'Failed to cancel subscription' });
       }
     } catch (error) {
       console.error('Error canceling subscription:', error);
       setMessage({ type: 'error', text: 'Network error occurred' });
     } finally {
       setIsCanceling(false);
+    }
+  };
+
+  const reactivateSubscription = async () => {
+    if (!user?.email) return;
+
+    if (!confirm('Are you sure you want to reactivate your subscription? It will continue to renew automatically.')) {
+      return;
+    }
+
+    setIsReactivating(true);
+    setMessage({ type: '', text: '' });
+
+    try {
+      const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/subscription/reactivate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName: user.email }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setMessage({ 
+          type: 'success', 
+          text: result.message || 'Subscription reactivated successfully. Your subscription will now continue to renew automatically.' 
+        });
+        // Refresh the API key data to update the subscription status
+        setTimeout(() => {
+          fetchApiKeyData(user.email);
+        }, 1000);
+      } else {
+        setMessage({ type: 'error', text: result.error || result.message || 'Failed to reactivate subscription' });
+      }
+    } catch (error) {
+      console.error('Error reactivating subscription:', error);
+      setMessage({ type: 'error', text: 'Network error occurred' });
+    } finally {
+      setIsReactivating(false);
     }
   };
 
@@ -237,6 +279,41 @@ const ApiKeyPage = () => {
         return 'from-purple-600/20 to-pink-600/20 border-purple-500/30';
       default:
         return 'from-blue-600/20 to-cyan-600/20 border-blue-500/30';
+    }
+  };
+
+  const getSubscriptionStatusInfo = (status) => {
+    switch (status) {
+      case 'active':
+        return {
+          color: 'text-green-400',
+          bgColor: 'bg-green-900/20 border-green-500/30',
+          icon: <CheckCircle className="w-5 h-5" />,
+          text: 'Active - Your subscription is active and will renew automatically'
+        };
+      case 'cancel_at_period_end':
+        return {
+          color: 'text-yellow-400',
+          bgColor: 'bg-yellow-900/20 border-yellow-500/30',
+          icon: <Clock className="w-5 h-5" />,
+          text: 'Scheduled for Cancellation - You will keep Pro access until your billing period ends'
+        };
+      case 'cancelled':
+        return {
+          color: 'text-red-400',
+          bgColor: 'bg-red-900/20 border-red-500/30',
+          icon: <X className="w-5 h-5" />,
+          text: 'Cancelled - Your subscription has ended and you\'ve been downgraded to the Free plan'
+        };
+      case 'paused':
+        return {
+          color: 'text-blue-400',
+          bgColor: 'bg-blue-900/20 border-blue-500/30',
+          icon: <AlertCircle className="w-5 h-5" />,
+          text: 'Paused - Your subscription is temporarily paused'
+        };
+      default:
+        return null;
     }
   };
 
@@ -312,34 +389,72 @@ const ApiKeyPage = () => {
                   </div>
                 )}
 
-                {/* Cancel Subscription Button - Only show for Pro users */}
+                {/* Subscription Action Buttons */}
                 {apiKeyData && apiKeyData.plan?.toLowerCase() === 'pro' && (
-                  <button
-                    onClick={cancelSubscription}
-                    disabled={isCanceling}
-                    className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50 text-sm"
-                  >
-                    {isCanceling ? (
-                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                    ) : (
-                      <X className="w-4 h-4 mr-2" />
-                    )}
-                    {isCanceling ? 'Canceling...' : 'Cancel Subscription'}
-                  </button>
+                  <div className="flex gap-2">
+                    {apiKeyData.subscription_status === 'cancel_at_period_end' ? (
+                      // Show reactivate button for cancelled subscriptions
+                      <button
+                        onClick={reactivateSubscription}
+                        disabled={isReactivating}
+                        className="flex items-center bg-green-600/20 hover:bg-green-600/30 border border-green-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50 text-sm"
+                        title="Reactivate your subscription to continue auto-renewal"
+                      >
+                        {isReactivating ? (
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <RotateCcw className="w-4 h-4 mr-2" />
+                        )}
+                        {isReactivating ? 'Reactivating...' : 'Reactivate'}
+                      </button>
+                    ) : apiKeyData.subscription_status === 'active' ? (
+                      // Show cancel button for active subscriptions
+                      <button
+                        onClick={cancelSubscription}
+                        disabled={isCanceling}
+                        className="flex items-center bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 px-4 py-2 rounded-lg transition-colors disabled:opacity-50 text-sm"
+                        title="Cancel your subscription at the end of the billing period"
+                      >
+                        {isCanceling ? (
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <X className="w-4 h-4 mr-2" />
+                        )}
+                        {isCanceling ? 'Canceling...' : 'Cancel Subscription'}
+                      </button>
+                    ) : null}
+                  </div>
                 )}
               </div>
             </div>
 
-            {/* Subscription Status Warning */}
-            {apiKeyData && apiKeyData.subscription_status === 'cancelled' && (
-              <div className="mb-6 p-4 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
-                <div className="flex items-center text-yellow-400">
-                  <AlertCircle className="w-5 h-5 mr-2" />
-                  <span className="font-semibold">Subscription Cancelled</span>
+            {/* Subscription Status Banner */}
+            {apiKeyData && getSubscriptionStatusInfo(apiKeyData.subscription_status) && (
+              <div className={`mb-6 p-4 rounded-lg border ${getSubscriptionStatusInfo(apiKeyData.subscription_status).bgColor}`}>
+                <div className={`flex items-center ${getSubscriptionStatusInfo(apiKeyData.subscription_status).color}`}>
+                  {getSubscriptionStatusInfo(apiKeyData.subscription_status).icon}
+                  <span className="font-semibold ml-2">
+                    Subscription Status: {apiKeyData.subscription_status.replace('_', ' ').toUpperCase()}
+                  </span>
                 </div>
-                <p className="text-yellow-300 text-sm mt-1">
-                  Your Pro subscription has been cancelled. You will continue to have access to Pro features until the end of your billing period, after which your account will be downgraded to the Free plan.
+                <p className={`text-sm mt-1 ${getSubscriptionStatusInfo(apiKeyData.subscription_status).color.replace('400', '300')}`}>
+                  {getSubscriptionStatusInfo(apiKeyData.subscription_status).text}
                 </p>
+                
+                {/* Additional info for cancel_at_period_end */}
+                {apiKeyData.subscription_status === 'cancel_at_period_end' && (
+                  <div className="mt-3 p-3 bg-yellow-900/10 border border-yellow-500/20 rounded-lg">
+                    <p className="text-yellow-200 text-sm">
+                      <strong>What happens next:</strong>
+                    </p>
+                    <ul className="text-yellow-300 text-sm mt-1 list-disc list-inside space-y-1">
+                      <li>You'll keep all Pro features until your billing period ends</li>
+                      <li>No further charges will be made to your payment method</li>
+                      <li>Your account will automatically downgrade to the Free plan</li>
+                      <li>You can reactivate anytime before the period ends</li>
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
 
