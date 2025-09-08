@@ -111,7 +111,7 @@ const ApiKeyPage = () => {
         setShowApiKey(true); // Force show the key
         setMessage({ 
           type: 'success', 
-          text: '⚠️ IMPORTANT: This is your API key. Copy it now - you won\'t be able to see it again!' 
+          text: 'IMPORTANT: This is your API key. Copy it now - you won\'t be able to see it again!' 
         });
         
         // After 30 seconds, hide the real key and show masked version
@@ -263,6 +263,13 @@ const ApiKeyPage = () => {
           icon: <X className="w-5 h-5" />,
           text: 'Cancelled - Your subscription has ended and you\'ve been downgraded to the Free plan'
         };
+      case 'past_due':
+        return {
+          color: 'text-red-400',
+          bgColor: 'bg-red-900/20 border-red-500/30',
+          icon: <AlertCircle className="w-5 h-5" />,
+          text: 'Past Due - Payment failed. Please update your payment method to restore Pro access.'
+        };
       case 'paused':
         return {
           color: 'text-blue-400',
@@ -347,7 +354,7 @@ const ApiKeyPage = () => {
                   </div>
                 )}
 
-                {/* Subscription Action Buttons */}
+                {/* Subscription Action Buttons - Only show for active subscriptions */}
                 {apiKeyData && apiKeyData.plan?.toLowerCase() === 'pro' && apiKeyData.subscription_status === 'active' && (
                   <div className="flex gap-2">
                     <button
@@ -391,6 +398,21 @@ const ApiKeyPage = () => {
                       <li>You'll keep all Pro features until your billing period ends</li>
                       <li>No further charges will be made to your payment method</li>
                       <li>Your account will automatically downgrade to the Free plan</li>
+                    </ul>
+                  </div>
+                )}
+
+                {/* Past Due Special Banner */}
+                {apiKeyData.subscription_status === 'past_due' && (
+                  <div className="mt-3 p-3 bg-red-900/30 border border-red-500/40 rounded-lg">
+                    <p className="text-red-200 text-sm">
+                      <strong>Action Required:</strong>
+                    </p>
+                    <ul className="text-red-300 text-sm mt-1 list-disc list-inside space-y-1">
+                      <li>Your payment method was declined</li>
+                      <li>Pro features have been temporarily disabled</li>
+                      <li>Update your payment method to restore access</li>
+                      <li>Contact support if you need assistance</li>
                     </ul>
                   </div>
                 )}
