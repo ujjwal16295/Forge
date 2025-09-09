@@ -12,7 +12,7 @@ const Pricing = () => {
   const [paddle, setPaddle] = useState();
   
   // Control variable for Pro plan availability
-  const isProPlanAvailable = true; // Change this to true when Pro plan is ready
+  const isProPlanAvailable = false; // Change this to true when Pro plan is ready
 
   const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
