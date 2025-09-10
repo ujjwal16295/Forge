@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Check, Star, Zap, ArrowRight, Crown, Loader2, LogIn } from 'lucide-react';
+import { Check, Star, Zap, ArrowRight, Crown, Loader2, LogIn, Infinity, Calendar, Trophy } from 'lucide-react';
 import { supabase } from '../lib/supabase'; // Adjust path as needed
 import { initializePaddle } from "@paddle/paddle-js";
 
@@ -12,7 +12,7 @@ const Pricing = () => {
   const [paddle, setPaddle] = useState();
   
   // Control variable for Pro plan availability
-  const isProPlanAvailable = false; // Change this to true when Pro plan is ready
+  const isProPlanAvailable = false; // Pro plan is available
 
   const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
@@ -300,7 +300,7 @@ const Pricing = () => {
             </h2>
             
             <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-              Start free and scale as your team grows. All plans include our core AI code review features.
+              Start free with lifetime usage or upgrade for daily limits. Both plans powered by Deepseek AI.
             </p>
 
             {/* Authentication Status Indicator */}
@@ -339,26 +339,46 @@ const Pricing = () => {
               )}
               
               <div className="text-center">
-                <h3 className="text-2xl font-bold mb-2">Free</h3>
+                <h3 className="text-2xl font-bold mb-2 flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-blue-400 mr-2" />
+                  Free
+                </h3>
                 <div className="text-4xl font-bold mb-1">$0</div>
-                <p className="text-gray-400 mb-8">Perfect for trying out Forge</p>
+                <p className="text-gray-400 mb-6">Perfect for trying out Forge</p>
+                
+                {/* Usage Limit Badge */}
+                <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-3 mb-6">
+                  <div className="flex items-center justify-center text-blue-400 font-semibold">
+                    <Infinity className="w-5 h-5 mr-2" />
+                    3 Total Lifetime Uses
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">Once exhausted, upgrade to Pro</p>
+                </div>
                 
                 <div className="space-y-4 mb-8 text-left">
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>3 code reviews per day</span>
+                    <span>Powered by <strong>Deepseek AI</strong></span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>Basic refactoring</span>
+                    <span>Complete file replacement & refactoring</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>Code cleanup</span>
+                    <span>React/Next.js project detection</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>Git branch creation</span>
+                    <span>Git branch-based workflow</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    <span>Hardcoded secret detection</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    <span>Dependency cleanup</span>
                   </div>
                 </div>
                 
@@ -368,14 +388,6 @@ const Pricing = () => {
 
             {/* Pro Plan */}
             <div className={getPlanCardClass('pro')}>
-              {!isProPlanAvailable && currentPlan !== 'pro' && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
-                    Coming Soon
-                  </div>
-                </div>
-              )}
-              
               {currentPlan === 'pro' && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 rounded-full text-sm font-semibold flex items-center">
@@ -392,51 +404,51 @@ const Pricing = () => {
                 </div>
                 <div className="text-4xl font-bold mb-1">
                   <span className="text-white">$</span>
-                  <span className="bg-gradient-to-r text-white bg-clip-text">5</span>
+                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">5</span>
                 </div>
-                <p className="text-gray-400 mb-8">For growing development teams</p>
+                <p className="text-gray-400 mb-6">For regular development work</p>
+                
+                {/* Usage Limit Badge */}
+                <div className="bg-purple-900/30 border border-purple-500/30 rounded-lg p-3 mb-6">
+                  <div className="flex items-center justify-center text-purple-400 font-semibold">
+                    <Calendar className="w-5 h-5 mr-2" />
+                    10 Uses Per Day
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">Resets daily at midnight</p>
+                </div>
                 
                 <div className="space-y-4 mb-8 text-left">
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Unlimited code reviews</span>
+                    <span>Powered by <strong>Deepseek AI</strong></span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Advanced refactoring</span>
+                    <span>Complete file replacement & refactoring</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Custom coding standards</span>
+                    <span>React/Next.js project detection</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Priority support</span>
+                    <span>Git branch-based workflow</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Team collaboration</span>
+                    <span>Hardcoded secret detection</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    <span>Dependency cleanup</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    <span className="text-purple-300 font-semibold">Daily usage renewal</span>
                   </div>
                 </div>
                 
                 {getPlanButton('pro', 'Pro')}
-              </div>
-            </div>
-          </div>
-
-          {/* FAQ Section */}
-          <div className="mt-20 text-center">
-            <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
-            
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">Can I cancel anytime?</h4>
-                <p className="text-gray-400 text-sm">Yes! You can cancel your Pro subscription at any time. You'll continue to have access until the end of your billing period.</p>
-              </div>
-              
-              <div className="bg-gray-900/30 rounded-lg p-6 border border-gray-700">
-                <h4 className="font-semibold mb-2">What programming languages are supported?</h4>
-                <p className="text-gray-400 text-sm">Forge supports currently Next.js and React.js with more languages coming soon!</p>
               </div>
             </div>
           </div>
