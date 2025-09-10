@@ -38,13 +38,13 @@ const ForgeFeatures = () => {
   const featureCategories = {
     core: {
       title: "AI-Powered Refactoring",
-      description: "Complete file replacement and code transformation using Gemini AI",
+      description: "Complete file replacement and code transformation using Deepseek AI",
       color: "blue",
       features: [
         {
           icon: RefreshCw,
           title: "Complete File Replacement",
-          description: "Rewrites entire codebases while preserving unselected files using Gemini 2.5 Flash",
+          description: "Rewrites entire codebases while preserving unselected files using Deepseek 2.5 Flash",
           benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements"]
         },
         {
@@ -195,7 +195,7 @@ const ForgeFeatures = () => {
               </div>
               <div className="text-gray-200 space-y-2">
                 <p>Currently we are supporting only <span className="font-semibold text-yellow-300">Next.js and React.js</span></p>
-                <p>We are using <span className="font-semibold text-yellow-300">Gemini 2.5 Flash</span> allowing <span className="font-semibold text-yellow-300">10 users</span> currently</p>
+                <p>We are using <span className="font-semibold text-yellow-300">Deepseek</span> allowing <span className="font-semibold text-yellow-300">10 users</span> currently</p>
                 <p className="text-sm text-gray-300">Currently product is in early stage. Later we will move to better models</p>
               </div>
             </div>

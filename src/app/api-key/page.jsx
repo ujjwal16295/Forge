@@ -14,6 +14,9 @@ const ApiKeyPage = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
   const [copySuccess, setCopySuccess] = useState(false);
 
+  // Check if plan is free
+  const isFree = apiKeyData?.plan?.toLowerCase() === 'free';
+
   // Check authentication and redirect if not logged in
   useEffect(() => {
     const checkAuth = async () => {
@@ -502,15 +505,19 @@ const ApiKeyPage = () => {
                   )}
                 </div>
 
-                {/* Usage Statistics */}
+                {/* Usage Statistics - Modified for Free Plan */}
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-blue-600/10 rounded-lg p-6 border border-blue-500/20">
-                    <div className="text-blue-400 text-sm font-medium mb-2">Daily Limit</div>
+                    <div className="text-blue-400 text-sm font-medium mb-2">
+                      {isFree ? 'Lifetime Limit' : 'Daily Limit'}
+                    </div>
                     <div className="text-3xl font-bold">{apiKeyData.limit}</div>
                   </div>
                   
                   <div className="bg-green-600/10 rounded-lg p-6 border border-green-500/20">
-                    <div className="text-green-400 text-sm font-medium mb-2">Used Today</div>
+                    <div className="text-green-400 text-sm font-medium mb-2">
+                      {isFree ? 'Total Used' : 'Used Today'}
+                    </div>
                     <div className="text-3xl font-bold">{apiKeyData.count}</div>
                   </div>
                   
@@ -520,10 +527,12 @@ const ApiKeyPage = () => {
                   </div>
                 </div>
 
-                {/* Usage Progress Bar */}
+                {/* Usage Progress Bar - Modified for Free Plan */}
                 <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-600">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium">Daily Usage</span>
+                    <span className="text-sm font-medium">
+                      {isFree ? 'Lifetime Usage' : 'Daily Usage'}
+                    </span>
                     <span className="text-sm text-gray-400">
                       {apiKeyData.count}/{apiKeyData.limit} requests
                     </span>
@@ -544,8 +553,21 @@ const ApiKeyPage = () => {
                   </div>
                   {apiKeyData.is_limit_reached && (
                     <p className="text-red-400 text-sm mt-2">
-                      Daily limit reached. Your usage will reset tomorrow.
+                      {isFree 
+                        ? 'Lifetime limit reached. Please upgrade to a paid plan for more requests.'
+                        : 'Daily limit reached. Your usage will reset tomorrow.'
+                      }
                     </p>
+                  )}
+                  
+                  {/* Free plan specific message */}
+                  {isFree && !apiKeyData.is_limit_reached && (
+                    <div className="mt-3 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                      <p className="text-blue-400 text-sm">
+                        <strong>Free Plan:</strong> This is your lifetime usage limit. No daily reset. 
+                        Upgrade to Pro for unlimited daily requests with daily reset.
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
