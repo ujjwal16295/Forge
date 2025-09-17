@@ -5,7 +5,6 @@ import { supabase } from '../../lib/supabase';
 
 const ForgeLoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
   // Check for existing session on component mount
   useEffect(() => {
@@ -72,45 +71,9 @@ const ForgeLoginPage = () => {
     initAuth();
   }, []);
 
-  // Check user limit via backend API
-  const checkUserLimit = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/check-user-limit`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error('Error checking user limit:', data.error);
-        return true; // Allow login if check fails
-      }
-
-      if (!data.canLogin) {
-        alert(data.message || 'User limit reached. Try again later.');
-        return false;
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Error checking user limit:', error);
-      return true; // Allow login if check fails
-    }
-  };
-
   const handleGitHubLogin = async () => {
     console.log('Login page: GitHub login button clicked');
     
-    // Check user limit before allowing login
-    const canLogin = await checkUserLimit();
-    if (!canLogin) {
-      console.log('Login page: User limit reached, blocking login attempt');
-      return;
-    }
-
     setIsLoading(true);
 
     try {
@@ -131,16 +94,6 @@ const ForgeLoginPage = () => {
     } catch (error) {
       console.error('Login page: GitHub login failed:', error);
       setIsLoading(false);
-    }
-  };
-
-  // Debug helper - you can remove this in production
-  const testSession = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    console.log('Current session:', session);
-    if (session) {
-      console.log('User email:', session.user?.email);
-      console.log('Session expires at:', new Date(session.expires_at * 1000));
     }
   };
 
