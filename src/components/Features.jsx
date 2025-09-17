@@ -21,9 +21,11 @@ import {
   BookOpen,
   Search,
   Settings,
-  X
+  X,
+  Crown,
+  Star
 } from 'lucide-react';
-//feature
+
 const ForgeFeatures = () => {
   const [activeCategory, setActiveCategory] = useState('core');
   const [scrollY, setScrollY] = useState(0);
@@ -38,14 +40,14 @@ const ForgeFeatures = () => {
   const featureCategories = {
     core: {
       title: "AI-Powered Refactoring",
-      description: "Complete file replacement and code transformation using Deepseek AI",
+      description: "Complete file replacement and code transformation using advanced AI models",
       color: "blue",
       features: [
         {
           icon: RefreshCw,
           title: "Complete File Replacement",
-          description: "Rewrites entire codebases while preserving unselected files using Deepseek 2.5 Flash",
-          benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements"]
+          description: "Rewrites entire codebases while preserving unselected files using Deepseek (free) or GPT-5-mini (paid)",
+          benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements", "Choice of AI models"]
         },
         {
           icon: Target,
@@ -180,23 +182,47 @@ const ForgeFeatures = () => {
         {/* Current Status Banner */}
         {showBanner && (
           <div className="mb-8">
-            <div className="bg-gradient-to-r from-yellow-600/20 to-yellow-800/20 border border-yellow-500/30 rounded-xl p-6 text-center backdrop-blur-sm relative">
+            <div className="bg-gradient-to-r from-indigo-600/20 to-purple-800/20 border border-indigo-500/30 rounded-xl p-6 text-center backdrop-blur-sm relative">
               <button
                 onClick={() => setShowBanner(false)}
-                className="absolute top-4 right-4 text-yellow-400 hover:text-yellow-300 transition-colors duration-200 p-1 rounded-full hover:bg-yellow-400/10"
+                className="absolute top-4 right-4 text-indigo-400 hover:text-indigo-300 transition-colors duration-200 p-1 rounded-full hover:bg-indigo-400/10"
                 aria-label="Close banner"
               >
                 <X className="w-5 h-5" />
               </button>
               
-              <div className="flex items-center justify-center mb-3">
-                <AlertTriangle className="w-6 h-6 text-yellow-400 mr-3" />
-                <h3 className="text-xl font-semibold text-yellow-400">Early Access Notice</h3>
+              <div className="flex items-center justify-center mb-4">
+                <Zap className="w-6 h-6 text-indigo-400 mr-3" />
+                <h3 className="text-xl font-semibold text-indigo-400">AI Models Available</h3>
               </div>
-              <div className="text-gray-200 space-y-2">
-                <p>Currently we are supporting only <span className="font-semibold text-yellow-300">Next.js and React.js</span></p>
-                <p>We are using <span className="font-semibold text-yellow-300">Deepseek</span> allowing <span className="font-semibold text-yellow-300">10 users</span> currently</p>
-                <p className="text-sm text-gray-300">Currently product is in early stage. Later we will move to better models</p>
+              
+              <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {/* Free Tier */}
+                <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-600/30">
+                  <div className="flex items-center justify-center mb-3">
+                    <Star className="w-5 h-5 text-blue-400 mr-2" />
+                    <h4 className="font-semibold text-blue-400">Free Users</h4>
+                  </div>
+                  <div className="text-gray-200 space-y-2">
+                    <p><span className="font-semibold text-blue-300">Deepseek</span></p>
+                  </div>
+                </div>
+                
+                {/* Paid Tier */}
+                <div className="bg-gradient-to-br from-yellow-600/20 to-yellow-800/20 rounded-lg p-4 border border-yellow-500/30">
+                  <div className="flex items-center justify-center mb-3">
+                    <Crown className="w-5 h-5 text-yellow-400 mr-2" />
+                    <h4 className="font-semibold text-yellow-400">Paid Users</h4>
+                  </div>
+                  <div className="text-gray-200 space-y-2">
+                    <p><span className="font-semibold text-yellow-300">GPT-5-mini</span></p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-4 text-gray-300">
+                <p>Currently supporting <span className="font-semibold text-indigo-300">Next.js and React.js</span> projects</p>
+                <p className="text-sm text-gray-400 mt-2">Product is in early stage - more frameworks and features coming soon</p>
               </div>
             </div>
           </div>

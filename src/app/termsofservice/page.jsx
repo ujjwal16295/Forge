@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, FileText, Users, AlertTriangle } from 'lucide-react';
+import { Shield, FileText, Users, AlertTriangle, Crown, Sparkles, Bot } from 'lucide-react';
 
 const TermsOfService = () => {
   return (
@@ -21,7 +21,7 @@ const TermsOfService = () => {
             Please read these terms carefully before using Forge
           </p>
           <p className="text-sm text-gray-400 mt-4">
-            Last updated: January 2025
+            Last updated: September 2025
           </p>
         </div>
       </div>
@@ -95,35 +95,99 @@ const TermsOfService = () => {
             </ul>
           </div>
 
-          {/* Section 5 */}
+          {/* Section 5 - Updated Service Plans */}
           <div className="mb-12 p-8 bg-gradient-to-br from-indigo-600/10 to-blue-600/10 rounded-2xl border border-indigo-500/20">
-            <h2 className="text-2xl font-bold text-white mb-4">5. Service Plans</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>Free Plan:</strong> Currently available with limited usage. Additional plans are in development.
-            </p>
+            <h2 className="text-2xl font-bold text-white mb-6">5. Service Plans and AI Models</h2>
+            
+            {/* Free Plan */}
+            <div className="mb-6 p-4 bg-blue-600/20 rounded-lg border border-blue-500/30">
+              <div className="flex items-center mb-3">
+                <Bot className="w-5 h-5 text-blue-400 mr-2" />
+                <h3 className="text-lg font-semibold text-blue-400">Free Plan</h3>
+              </div>
+              <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
+                <li>Powered by <strong>Deepseek AI</strong> model</li>
+                <li>3 total lifetime uses</li>
+                <li>All core features included</li>
+                <li>No recurring payments</li>
+              </ul>
+            </div>
+
+            {/* Pro Plan */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg border border-purple-500/30">
+              <div className="flex items-center mb-3">
+                <Crown className="w-5 h-5 text-purple-400 mr-2" />
+                <h3 className="text-lg font-semibold text-purple-400">Pro Plan - $10/month</h3>
+                <span className="text-xs text-gray-400 ml-2">(exclusive of tax)</span>
+              </div>
+              <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
+                <li>Powered by <strong>GPT-5-mini</strong> premium AI model</li>
+                <li>10 uses per day (resets daily at midnight)</li>
+                <li>Enhanced AI performance and capabilities</li>
+                <li>All features from Free plan</li>
+                <li>Priority support</li>
+              </ul>
+            </div>
+
             <p className="text-gray-300 leading-relaxed mb-4">
               We reserve the right to:
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
-              <li>Modify service plans and pricing with notice</li>
+              <li>Modify service plans and pricing with 30 days notice</li>
               <li>Implement usage limits to ensure fair access</li>
               <li>Introduce new features and pricing tiers</li>
+              <li>Temporarily disable service for maintenance</li>
             </ul>
           </div>
 
-          {/* Section 6 - No Refund Policy */}
+          {/* Section 6 - Enhanced No Refund Policy */}
           <div className="mb-12 p-8 bg-gradient-to-br from-red-600/10 to-orange-600/10 rounded-2xl border border-red-500/20">
-            <h2 className="text-2xl font-bold text-white mb-4">6. No Refund Policy</h2>
+            <div className="flex items-center mb-4">
+              <AlertTriangle className="w-6 h-6 text-red-400 mr-3" />
+              <h2 className="text-2xl font-bold text-white">6. No Refund Policy</h2>
+            </div>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>All sales are final.</strong> We do not offer refunds, credits, or cancellations for any payments made for Forge services under any circumstances, including but not limited to:
+            </p>
+            <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+              <li>Pro plan subscriptions (monthly or any future billing cycles)</li>
+              <li>API credits or usage-based payments</li>
+              <li>Accidental purchases or duplicate payments</li>
+              <li>Dissatisfaction with service or AI model performance</li>
+              <li>Technical issues or temporary service interruptions</li>
+              <li>Changes in personal circumstances or business needs</li>
+            </ul>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>Subscription Cancellation:</strong> You may cancel your Pro subscription at any time to prevent future charges, but you will continue to have access to Pro features until the end of your current billing period. No refund will be provided for the remaining portion of your subscription.
+            </p>
             <p className="text-gray-300 leading-relaxed">
-              All sales are final. We do not offer refunds for any payments made for Forge services, including subscriptions, API credits, or any other purchases. Please ensure you understand our service before making any payments.
+              <strong>Free Trial:</strong> We recommend starting with our Free plan to evaluate the service before upgrading to Pro. This allows you to test our AI models and features without financial commitment.
             </p>
           </div>
 
-          {/* Section 7 */}
+          {/* Section 7 - Billing and Payment */}
+          <div className="mb-12 p-8 bg-gradient-to-br from-green-600/10 to-teal-600/10 rounded-2xl border border-green-500/20">
+            <h2 className="text-2xl font-bold text-white mb-4">7. Billing and Payment</h2>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>Pro Plan Billing:</strong> Pro subscriptions are billed monthly in advance. Payments are processed through our secure payment provider.
+            </p>
+            <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+              <li>Monthly subscriptions automatically renew unless cancelled</li>
+              <li>Payment is due immediately upon subscription</li>
+              <li>Failed payments may result in service suspension</li>
+              <li>Prices are exclusive of applicable taxes</li>
+              <li>You are responsible for any bank or payment processing fees</li>
+            </ul>
+            <p className="text-gray-300 leading-relaxed">
+              <strong>Usage Tracking:</strong> Pro plan usage resets daily at midnight UTC. Unused daily usage does not roll over to the next day.
+            </p>
+          </div>
+
+          {/* Section 8 */}
           <div className="mb-12 p-8 bg-gradient-to-br from-red-600/10 to-pink-600/10 rounded-2xl border border-red-500/20">
             <div className="flex items-center mb-4">
               <AlertTriangle className="w-6 h-6 text-red-400 mr-3" />
-              <h2 className="text-2xl font-bold text-white">7. Acceptable Use</h2>
+              <h2 className="text-2xl font-bold text-white">8. Acceptable Use</h2>
             </div>
             <p className="text-gray-300 leading-relaxed mb-4">
               You agree NOT to:
@@ -134,41 +198,47 @@ const TermsOfService = () => {
               <li>Exceed reasonable usage limits or abuse the API</li>
               <li>Share or resell your API access</li>
               <li>Use the service to process malicious code or malware</li>
+              <li>Create multiple accounts to circumvent usage limits</li>
+              <li>Use automated tools to exceed plan limitations</li>
             </ul>
           </div>
 
-          {/* Section 8 */}
+          {/* Section 9 */}
           <div className="mb-12 p-8 bg-gradient-to-br from-teal-600/10 to-green-600/10 rounded-2xl border border-teal-500/20">
-            <h2 className="text-2xl font-bold text-white mb-4">8. Disclaimers and Limitations</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">9. Disclaimers and Limitations</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
               <strong>Service Availability:</strong> We strive for high availability but cannot guarantee uninterrupted service.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>AI Suggestions:</strong> Our AI provides suggestions based on best practices, but you remain responsible for reviewing and testing all changes.
+              <strong>AI Suggestions:</strong> Our AI models (Deepseek and GPT-5-mini) provide suggestions based on best practices, but you remain responsible for reviewing and testing all changes.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              <strong>Limitation of Liability:</strong> Forge is provided "as is" without warranties. We are not liable for any damages arising from the use of our service.
+              <strong>Limitation of Liability:</strong> Forge is provided "as is" without warranties. We are not liable for any damages arising from the use of our service, including but not limited to code changes, security vulnerabilities, or business losses.
             </p>
-          </div>
-
-          {/* Section 9 */}
-          <div className="mb-12 p-8 bg-gradient-to-br from-gray-600/10 to-slate-600/10 rounded-2xl border border-gray-500/20">
-            <h2 className="text-2xl font-bold text-white mb-4">9. Termination</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              Either party may terminate this agreement at any time. Upon termination:
-            </p>
-            <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
-              <li>Your API key will be deactivated</li>
-              <li>Access to the service will be revoked</li>
-              <li>We may delete your account data as per our Privacy Policy</li>
-            </ul>
           </div>
 
           {/* Section 10 */}
-          <div className="mb-12 p-8 bg-gradient-to-br from-violet-600/10 to-purple-600/10 rounded-2xl border border-violet-500/20">
-            <h2 className="text-2xl font-bold text-white mb-4">10. Changes to Terms</h2>
+          <div className="mb-12 p-8 bg-gradient-to-br from-gray-600/10 to-slate-600/10 rounded-2xl border border-gray-500/20">
+            <h2 className="text-2xl font-bold text-white mb-4">10. Termination</h2>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              Either party may terminate this agreement at any time. Upon termination:
+            </p>
+            <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+              <li>Your API key will be deactivated</li>
+              <li>Access to the service will be revoked</li>
+              <li>Pro subscriptions will be cancelled (no refund provided)</li>
+              <li>We may delete your account data as per our Privacy Policy</li>
+            </ul>
             <p className="text-gray-300 leading-relaxed">
-              We may update these terms from time to time. Continued use of the service after changes constitutes acceptance of the new terms. We will notify users of significant changes via email or through our website.
+              <strong>Account Suspension:</strong> We reserve the right to suspend or terminate accounts that violate these terms, exceed usage limits, or engage in abusive behavior.
+            </p>
+          </div>
+
+          {/* Section 11 */}
+          <div className="mb-12 p-8 bg-gradient-to-br from-violet-600/10 to-purple-600/10 rounded-2xl border border-violet-500/20">
+            <h2 className="text-2xl font-bold text-white mb-4">11. Changes to Terms</h2>
+            <p className="text-gray-300 leading-relaxed">
+              We may update these terms from time to time. Continued use of the service after changes constitutes acceptance of the new terms. We will notify users of significant changes via email or through our website at least 30 days in advance when possible.
             </p>
           </div>
 
@@ -176,7 +246,7 @@ const TermsOfService = () => {
           <div className="p-8 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl border border-blue-500/30 text-center">
             <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
             <p className="text-gray-300 leading-relaxed">
-              If you have any questions about these Terms of Service, please contact us through newujjwalpatel@gamil.com or reach out via our social media channels.
+              If you have any questions about these Terms of Service, please contact us through newujjwalpatel@gmail.com or reach out via our social media channels.
             </p>
           </div>
 

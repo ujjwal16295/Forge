@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Check, Star, Zap, ArrowRight, Crown, Loader2, LogIn, Infinity, Calendar, Trophy } from 'lucide-react';
+import { Check, Star, Zap, ArrowRight, Crown, Loader2, LogIn, Infinity, Calendar, Trophy, Bot, Sparkles } from 'lucide-react';
 import { supabase } from '../lib/supabase'; // Adjust path as needed
 import { initializePaddle } from "@paddle/paddle-js";
 
@@ -12,7 +12,7 @@ const Pricing = () => {
   const [paddle, setPaddle] = useState();
   
   // Control variable for Pro plan availability
-  const isProPlanAvailable = false; // Pro plan is available
+  const isProPlanAvailable = true; // Pro plan is available
 
   const API_BASE_URL = 'https://smart-converter-backend-5zmh.onrender.com';
 
@@ -300,7 +300,7 @@ const Pricing = () => {
             </h2>
             
             <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-              Start free with lifetime usage or upgrade for daily limits. Both plans powered by Deepseek AI.
+              Start free with Deepseek AI or upgrade to Pro for GPT-5-mini with enhanced capabilities.
             </p>
 
             {/* Authentication Status Indicator */}
@@ -344,11 +344,20 @@ const Pricing = () => {
                   Free
                 </h3>
                 <div className="text-4xl font-bold mb-1">$0</div>
-                <p className="text-gray-400 mb-6">Perfect for trying out Forge</p>
+                <p className="text-gray-400 mb-4">Perfect for trying out Forge</p>
+                
+                {/* AI Model Badge */}
+                <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-center text-blue-400 font-semibold mb-1">
+                    <Bot className="w-5 h-5 mr-2" />
+                    Powered by Deepseek AI
+                  </div>
+                  <p className="text-xs text-gray-400">Advanced AI model for code refactoring</p>
+                </div>
                 
                 {/* Usage Limit Badge */}
-                <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-3 mb-6">
-                  <div className="flex items-center justify-center text-blue-400 font-semibold">
+                <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-3 mb-6">
+                  <div className="flex items-center justify-center text-gray-300 font-semibold">
                     <Infinity className="w-5 h-5 mr-2" />
                     3 Total Lifetime Uses
                   </div>
@@ -356,10 +365,6 @@ const Pricing = () => {
                 </div>
                 
                 <div className="space-y-4 mb-8 text-left">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    <span>Powered by <strong>Deepseek AI</strong></span>
-                  </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
                     <span>Complete file replacement & refactoring</span>
@@ -404,9 +409,19 @@ const Pricing = () => {
                 </div>
                 <div className="text-4xl font-bold mb-1">
                   <span className="text-white">$</span>
-                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">5</span>
+                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">10</span>
                 </div>
-                <p className="text-gray-400 mb-6">For regular development work</p>
+                <p className="text-xs text-gray-500 mb-1">exclusive of tax</p>
+                <p className="text-gray-400 mb-4">For regular development work</p>
+                
+                {/* AI Model Badge */}
+                <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-center text-purple-300 font-semibold mb-1">
+                    <Sparkles className="w-5 h-5 mr-2" />
+                    Powered by GPT-5-mini
+                  </div>
+                  <p className="text-xs text-gray-400">Premium AI model with enhanced capabilities</p>
+                </div>
                 
                 {/* Usage Limit Badge */}
                 <div className="bg-purple-900/30 border border-purple-500/30 rounded-lg p-3 mb-6">
@@ -418,10 +433,6 @@ const Pricing = () => {
                 </div>
                 
                 <div className="space-y-4 mb-8 text-left">
-                  <div className="flex items-center">
-                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span>Powered by <strong>Deepseek AI</strong></span>
-                  </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
                     <span>Complete file replacement & refactoring</span>
@@ -445,6 +456,10 @@ const Pricing = () => {
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
                     <span className="text-purple-300 font-semibold">Daily usage renewal</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    <span className="text-purple-300 font-semibold">Enhanced AI performance</span>
                   </div>
                 </div>
                 
