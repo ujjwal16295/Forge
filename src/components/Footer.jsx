@@ -33,7 +33,7 @@ export const Footer = () => {
                 Forge
               </div>
               <p className="text-gray-400">
-                AI-powered code review that makes your codebase cleaner, modular, and easier to maintain.
+                AI-powered code refactor that makes your codebase cleaner, modular, and easier to maintain.
               </p>
             </div>
             <div>

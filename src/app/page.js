@@ -126,11 +126,10 @@ const ForgeHomepage = () => {
         <div className="max-w-7xl mx-auto text-center relative">
           <div className="inline-flex items-center bg-gray-800/50 rounded-full px-6 py-3 mb-8 backdrop-blur-sm border border-gray-700">
             <Star className="w-5 h-5 text-yellow-400 mr-2" />
-            <span className="text-sm">Your AI Teammate for Perfect Code</span>
-          </div>
+            <span className="text-sm">Your AI Teammate for Code Refactoring & Generation</span>          </div>
           
           <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-            Code Review,
+          Code Refactoring,
             <br />
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               Revolutionized
@@ -138,10 +137,9 @@ const ForgeHomepage = () => {
           </h1>
           
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Forge automatically refactors, cleans, and documents your code while preserving readability. 
-            All changes are safely pushed to separate Git branches for your review.
-          </p>
-          
+  Forge automatically refactors, optimizes, generates new files, and cleans your code while preserving functionality. 
+  All changes are safely managed through Git branches with complete version control.
+</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href='/api-key' className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center group">
               Get Api Key
@@ -173,9 +171,9 @@ const ForgeHomepage = () => {
             Ready to Transform Your
             <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Codebase?</span>
           </h2>
-          <p className="text-xl text-gray-300 mb-12">
-            Join thousands of developers who've already upgraded their code review process
-          </p>
+          {/* <p className="text-xl text-gray-300 mb-12">
+  Join thousands of developers who've already transformed their development workflow with AI-powered refactoring
+</p> */}
           <div  className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/api-key" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center group">
               Get an Api key

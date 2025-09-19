@@ -461,6 +461,14 @@ const Pricing = () => {
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
                     <span className="text-purple-300 font-semibold">Enhanced AI performance</span>
                   </div>
+                  <div className="flex items-center">
+    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+    <span className="text-purple-300 font-semibold">Custom file generation</span>
+  </div>
+  <div className="flex items-center">
+    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+    <span className="text-purple-300 font-semibold">File optimization</span>
+  </div>
                 </div>
                 
                 {getPlanButton('pro', 'Pro')}

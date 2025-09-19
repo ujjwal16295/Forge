@@ -44,7 +44,7 @@ const TermsOfService = () => {
             </p>
           </div>
 
-          {/* Section 2 */}
+          {/* Section 2 - Updated */}
           <div className="mb-12 p-8 bg-gradient-to-br from-green-600/10 to-blue-600/10 rounded-2xl border border-green-500/20">
             <h2 className="text-2xl font-bold text-white mb-4">2. Service Description</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -54,6 +54,8 @@ const TermsOfService = () => {
               <li>AI-powered code refactoring and optimization</li>
               <li>Security vulnerability detection and suggestions</li>
               <li>Code modularization and naming convention improvements</li>
+              <li>Custom file generation based on user requirements</li>
+              <li>File optimization for performance and best practices</li>
               <li>Safe Git integration with diff branch creation</li>
               <li>API access through our VS Code extension</li>
             </ul>
@@ -108,12 +110,13 @@ const TermsOfService = () => {
               <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
                 <li>Powered by <strong>Deepseek AI</strong> model</li>
                 <li>3 total lifetime uses</li>
+                <li>Code refactoring and basic optimization</li>
                 <li>All core features included</li>
                 <li>No recurring payments</li>
               </ul>
             </div>
 
-            {/* Pro Plan */}
+            {/* Pro Plan - Updated */}
             <div className="mb-6 p-4 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg border border-purple-500/30">
               <div className="flex items-center mb-3">
                 <Crown className="w-5 h-5 text-purple-400 mr-2" />
@@ -124,6 +127,8 @@ const TermsOfService = () => {
                 <li>Powered by <strong>GPT-5-mini</strong> premium AI model</li>
                 <li>10 uses per day (resets daily at midnight)</li>
                 <li>Enhanced AI performance and capabilities</li>
+                <li>Custom file generation with intelligent integration</li>
+                <li>Advanced file optimization features</li>
                 <li>All features from Free plan</li>
                 <li>Priority support</li>
               </ul>
@@ -203,14 +208,14 @@ const TermsOfService = () => {
             </ul>
           </div>
 
-          {/* Section 9 */}
+          {/* Section 9 - Updated */}
           <div className="mb-12 p-8 bg-gradient-to-br from-teal-600/10 to-green-600/10 rounded-2xl border border-teal-500/20">
             <h2 className="text-2xl font-bold text-white mb-4">9. Disclaimers and Limitations</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
               <strong>Service Availability:</strong> We strive for high availability but cannot guarantee uninterrupted service.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>AI Suggestions:</strong> Our AI models (Deepseek and GPT-5-mini) provide suggestions based on best practices, but you remain responsible for reviewing and testing all changes.
+              <strong>AI Suggestions:</strong> Our AI models (Deepseek and GPT-5-mini) provide suggestions for refactoring, optimization, and file generation based on best practices, but you remain responsible for reviewing and testing all changes and generated code.
             </p>
             <p className="text-gray-300 leading-relaxed">
               <strong>Limitation of Liability:</strong> Forge is provided "as is" without warranties. We are not liable for any damages arising from the use of our service, including but not limited to code changes, security vulnerabilities, or business losses.
