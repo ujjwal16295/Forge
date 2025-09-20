@@ -107,30 +107,37 @@ const ForgeFeatures = () => {
     },
     optimization: {
       title: "File Optimization",
-      description: "AI-powered code optimization for better performance, maintainability, and modern practices",
+      description: "Improve individual file performance, code quality, and modern best practices",
       color: "orange",
       features: [
         {
           icon: Cpu,
-          title: "Performance Optimization",
-          description: "Improves code speed, reduces memory usage, and optimizes algorithms while preserving functionality",
-          benefits: ["Faster execution", "Reduced memory usage", "Algorithm improvements", "Performance gains"],
+          title: "Performance Improvements",
+          description: "Optimizes algorithms, reduces memory usage, and improves code execution efficiency in selected files",
+          benefits: ["Algorithm optimization", "Memory usage reduction", "Performance improvements", "Execution efficiency"],
           isPro: true
         },
         {
           icon: Code,
           title: "Code Quality Enhancement",
-          description: "Improves code structure, adds proper error handling, and enhances readability",
-          benefits: ["Better structure", "Enhanced readability", "Proper error handling", "Clean code practices"],
+          description: "Improves code structure, error handling, and readability while maintaining functionality",
+          benefits: ["Better code structure", "Enhanced error handling", "Improved readability", "Code quality standards"],
           isPro: true
         },
         {
           icon: Sparkles,
-          title: "Modern Best Practices",
-          description: "Updates code to use latest syntax, async patterns, and modern security practices",
-          benefits: ["Latest syntax", "Async patterns", "Security improvements", "Modern standards"],
+          title: "Modern Syntax Updates",
+          description: "Updates code to use modern JavaScript/TypeScript syntax and patterns",
+          benefits: ["Modern syntax", "Latest language features", "Best practice patterns", "Code modernization"],
           isPro: true
         },
+        {
+          icon: Trash2,
+          title: "Code Cleanup",
+          description: "Removes unused imports, variables, and dead code while consolidating related imports",
+          benefits: ["Unused import removal", "Dead code elimination", "Import consolidation", "Code cleanup"],
+          isPro: true
+        }
       ]
     },
     git: {

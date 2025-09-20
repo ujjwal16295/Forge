@@ -195,7 +195,196 @@ export const HowToUse = () => {
           </div>
         </div>
 
-  
+        {/* Features Section */}
+        <div className="mt-16">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Powerful Features
+              </span>
+            </h3>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            How to use three buttons in the extension
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Refactor Feature */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-2xl border border-gray-700/30 backdrop-blur-sm p-6 hover:border-blue-500/30 transition-all duration-300">
+              <div className="mb-6">
+                <img
+                  src="/refactor.png"
+                  alt="Code Refactoring"
+                  className="w-full h-32 object-contain rounded-xl bg-gray-900/20"
+                />
+              </div>
+              <h4 className="text-xl font-bold mb-4 text-center">
+                <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                  Refactor
+                </span>
+              </h4>
+              <p className="text-gray-400 text-center mb-6 leading-relaxed">
+              Intelligently restructure and improve your existing code while maintaining functionality. Perfect for cleaning up legacy code and implementing best practices with AI-powered analysis.              </p>
+              <div className="space-y-3">
+                {[
+                  "Select model",
+                  "Paste yout api key",
+                  "Select files",
+                  "Click on refactor button"
+                ].map((point, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 p-1.5 rounded-lg flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{point}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Generate Feature */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-2xl border border-gray-700/30 backdrop-blur-sm p-6 hover:border-purple-500/30 transition-all duration-300">
+              <div className="mb-6">
+                <img
+                  src="/generate.png"
+                  alt="Code Generation"
+                  className="w-full h-32 object-contain rounded-xl bg-gray-900/20"
+                />
+              </div>
+              <h4 className="text-xl font-bold mb-4 text-center">
+                <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                  Generate
+                </span>
+              </h4>
+              <p className="text-gray-400 text-center mb-6 leading-relaxed">
+              Create new code components, functions, or entire modules from natural language descriptions. Accelerate development with AI-powered code creation that follows your project patterns.              </p>
+              <div className="space-y-3">
+                {[
+                  "Select model",
+                  "Paste yout api key",
+                  "Selecting files is optional",
+                  "Give prompt and press generate"
+                ].map((point, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 p-1.5 rounded-lg flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{point}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Optimize Feature */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-2xl border border-gray-700/30 backdrop-blur-sm p-6 hover:border-green-500/30 transition-all duration-300">
+              <div className="mb-6">
+                <img
+                  src="/optimize.png"
+                  alt="Code Optimization"
+                  className="w-full h-32 object-contain rounded-xl bg-gray-900/20"
+                />
+              </div>
+              <h4 className="text-xl font-bold mb-4 text-center">
+                <span className="bg-gradient-to-r from-green-400 to-teal-600 bg-clip-text text-transparent">
+                  Optimize
+                </span>
+              </h4>
+              <p className="text-gray-400 text-center mb-6 leading-relaxed">
+              Enhance code performance, reduce complexity, and improve efficiency. Automatically identify bottlenecks and suggest performance improvements for individual files.              </p>
+              <div className="space-y-3">
+                {[
+                  "Select model",
+                  "Paste yout api key",
+                  "Select any one file",
+                  "Press optimize"
+                ].map((point, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="bg-gradient-to-r from-green-600/20 to-teal-600/20 p-1.5 rounded-lg flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{point}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Steps to Use Extension */}
+        <div className="mt-16">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Steps to Use Extension
+              </span>
+            </h3>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Watch these videos to see the extension in action and learn how to use it effectively
+            </p>
+          </div>
+
+          <div className="space-y-16">
+            {/* How-to Video */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-3xl border border-gray-700/30 backdrop-blur-sm p-8">
+              <h4 className="text-2xl font-bold mb-6 text-center">
+                <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                  Installation & Setup Guide
+                </span>
+              </h4>
+              <div className="max-w-4xl mx-auto">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-700/50">
+                  <video
+                    controls
+                    className="w-full h-auto"
+                    poster="/video-placeholder.jpg"
+                  >
+                    <source src="/how.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <p className="text-gray-400 text-center mt-4">
+                  Complete walkthrough of installing and setting up the Forge Code Refactor extension
+                </p>
+              </div>
+            </div>
+
+            {/* Demo Section */}
+            <div className="text-center mb-8">
+              <h4 className="text-2xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                  Demo
+                </span>
+              </h4>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                See the extension's powerful features in action with real code examples
+              </p>
+            </div>
+
+            {/* Live Demo Video */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-3xl border border-gray-700/30 backdrop-blur-sm p-8">
+              <h4 className="text-2xl font-bold mb-6 text-center">
+                <span className="bg-gradient-to-r from-green-400 to-teal-600 bg-clip-text text-transparent">
+                  Live Demo
+                </span>
+              </h4>
+              <div className="max-w-4xl mx-auto">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-700/50">
+                  <video
+                    controls
+                    className="w-full h-auto"
+                    poster="/demo-placeholder.jpg"
+                  >
+                    <source src="/live.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <p className="text-gray-400 text-center mt-4">
+                  Live demonstration of refactoring, generating, and optimizing code with the extension
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
