@@ -88,17 +88,19 @@ const Pricing = () => {
         },
         body: JSON.stringify({ name: email }),
       });
-
+  
       const result = await response.json();
       
       if (result.success && result.data) {
         setCurrentPlan(result.data.plan?.toLowerCase() || 'free');
+      } else if (response.status === 404) {
+        setCurrentPlan('free');
       } else {
-        setCurrentPlan('free'); // Default to free if no plan found
+        setCurrentPlan('free');
       }
     } catch (error) {
       console.error('Error fetching user plan:', error);
-      setCurrentPlan('free'); // Default to free on error
+      setCurrentPlan('free');
     } finally {
       setFetchingPlan(false);
     }
