@@ -92,10 +92,10 @@ const ApiKeyPage = () => {
 
   const generateApiKey = async () => {
     if (!user?.email) return;
-
+  
     setIsGenerating(true);
     setMessage({ type: '', text: '' });
-
+  
     try {
       // For free users, validate API key input
       if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
@@ -105,14 +105,14 @@ const ApiKeyPage = () => {
           return;
         }
       }
-
+  
       const requestBody = { name: user.email };
       
       // Add API key for free users
       if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
         requestBody.api_key = userApiKey.trim();
       }
-
+  
       const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/generate-api-key', {
         method: 'POST',
         headers: {
@@ -120,22 +120,26 @@ const ApiKeyPage = () => {
         },
         body: JSON.stringify(requestBody),
       });
-
+  
       const result = await response.json();
-
+  
       if (result.success) {
         const userPlan = result.data.plan?.toLowerCase();
         
         if (userPlan === 'free') {
-          // For free users, just show success message and refresh data
-          setApiKeyData(result.data);
+          // For free users, show success message and reload page after a short delay
           setMessage({ 
             type: 'success', 
-            text: 'API key stored successfully! You can now use the Forge API.' 
+            text: 'API key stored successfully! Reloading page...' 
           });
-          setUserApiKey(''); // Clear the input
+          
+          // Reload the page after 2 seconds
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+          
         } else {
-          // For pro users, show the real API key only once with a warning
+          // For pro users, show the real API key only once with a warning (same as before)
           setApiKeyData({
             ...result.data,
             showingRealKey: true, // Flag to show this is the real key
@@ -168,7 +172,6 @@ const ApiKeyPage = () => {
       setIsGenerating(false);
     }
   };
-
   const deleteApiKey = async () => {
     if (!user?.email || !apiKeyData) return;
 
