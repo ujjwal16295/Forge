@@ -104,12 +104,6 @@ const ApiKeyPage = () => {
           setIsGenerating(false);
           return;
         }
-
-        if (userApiKey.trim().length < 10) {
-          setMessage({ type: 'error', text: 'API key appears to be too short. Please enter a valid API key.' });
-          setIsGenerating(false);
-          return;
-        }
       }
 
       const requestBody = { name: user.email };
@@ -593,68 +587,69 @@ const ApiKeyPage = () => {
             ) : (
               /* Generate API Key Section */
               <div className="text-center py-12">
-                <div className="bg-gray-700/30 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Key className="w-12 h-12 text-gray-400" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">No API Key Found</h3>
-                <p className="text-gray-300 mb-8 max-w-md mx-auto">
-                  {!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free' 
-                    ? 'Enter your OpenRouter API key to start using the Forge API for code processing and refactoring.'
-                    : 'Generate your first API key to start using the Forge API for code processing and refactoring.'
-                  }
-                </p>
-                
-                {/* API Key Input for Free Users */}
-                {(!apiKeyData || !apiKeyData.hasApiKey || apiKeyData?.plan?.toLowerCase() === 'free') && (                  <div className="mb-8 max-w-md mx-auto">
-                    <label className="block text-left text-sm font-medium mb-3 text-gray-300">
-                      Enter Your OpenRouter API Key
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showUserApiKey ? "text" : "password"}
-                        value={userApiKey}
-                        onChange={(e) => setUserApiKey(e.target.value)}
-                        placeholder="sk-1234567890abcdef..."
-                        className="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        disabled={isGenerating}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowUserApiKey(!showUserApiKey)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-                      >
-                        {showUserApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
-                    </div>
-                    
-                    {/* Info box for free users */}
-                    <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg text-left">
-                      <p className="text-blue-400 text-sm">
-                        <strong>Free Plan:</strong> Provide your own API key from OpenRouter. 
-                        We'll securely store it encrypted for your use with the Forge API.
-                      </p>
-                    </div>
-                  </div>
-                )}
-                
-                <button
-                  onClick={generateApiKey}
-                  disabled={isGenerating}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 flex items-center mx-auto"
-                >
-                  {isGenerating ? (
-                    <>
-                      <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Storing...' : 'Generating...'}
-                    </>
-                  ) : (
-                    <>
-                      <Key className="w-5 h-5 mr-2" />
-                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Store API Key' : 'Generate API Key'}
-                    </>
-                  )}
-                </button>
-              </div>
+  <div className="bg-gray-700/30 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+    <Key className="w-12 h-12 text-gray-400" />
+  </div>
+  <h3 className="text-2xl font-bold mb-4">No API Key Found</h3>
+  <p className="text-gray-300 mb-8 max-w-md mx-auto">
+    {isFree 
+      ? 'Enter your OpenRouter API key to start using the Forge API for code processing and refactoring.'
+      : 'Generate your first API key to start using the Forge API for code processing and refactoring.'
+    }
+  </p>
+  
+  {/* API Key Input - Only show for Free Users */}
+  {isFree && (
+    <div className="mb-8 max-w-md mx-auto">
+      <label className="block text-left text-sm font-medium mb-3 text-gray-300">
+        Enter Your OpenRouter API Key
+      </label>
+      <div className="relative">
+        <input
+          type={showUserApiKey ? "text" : "password"}
+          value={userApiKey}
+          onChange={(e) => setUserApiKey(e.target.value)}
+          placeholder="sk-1234567890abcdef..."
+          className="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          disabled={isGenerating}
+        />
+        <button
+          type="button"
+          onClick={() => setShowUserApiKey(!showUserApiKey)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+        >
+          {showUserApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+        </button>
+      </div>
+      
+      {/* Info box for free users */}
+      <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg text-left">
+        <p className="text-blue-400 text-sm">
+          <strong>Free Plan:</strong> Provide your own API key from OpenRouter. 
+          We'll securely store it encrypted for your use with the Forge API.
+        </p>
+      </div>
+    </div>
+  )}
+  
+  <button
+    onClick={generateApiKey}
+    disabled={isGenerating}
+    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 flex items-center mx-auto"
+  >
+    {isGenerating ? (
+      <>
+        <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
+        {isFree ? 'Storing...' : 'Generating...'}
+      </>
+    ) : (
+      <>
+        <Key className="w-5 h-5 mr-2" />
+        {isFree ? 'Store API Key' : 'Generate API Key'}
+      </>
+    )}
+  </button>
+</div>
             )}
           </div>
         </div>
