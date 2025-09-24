@@ -174,10 +174,10 @@ const ApiKeyPage = () => {
   };
   const deleteApiKey = async () => {
     if (!user?.email || !apiKeyData) return;
-
+  
     setIsDeleting(true);
     setMessage({ type: '', text: '' });
-
+  
     try {
       const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/delete-api-key', {
         method: 'POST',
@@ -186,14 +186,17 @@ const ApiKeyPage = () => {
         },
         body: JSON.stringify({ name: user.email }),
       });
-
+  
       const result = await response.json();
-
+  
       if (result.success) {
-        setApiKeyData(null);
-        setShowApiKey(false);
-        setUserApiKey(''); // Clear the input
-        setMessage({ type: 'success', text: 'API key deleted successfully!' });
+        setMessage({ type: 'success', text: 'API key deleted successfully! Reloading page...' });
+        
+        // Reload the page after 2 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+        
       } else {
         setMessage({ type: 'error', text: result.error || 'Failed to delete API key' });
       }
