@@ -18,8 +18,9 @@ const ApiKeyPage = () => {
   const [userApiKey, setUserApiKey] = useState('');
   const [showUserApiKey, setShowUserApiKey] = useState(false);
 
-  // Check if plan is free (keeping for other conditional logic)
-  const isFree = apiKeyData?.plan?.toLowerCase() === 'free';
+  // Determine if user is on free plan
+  const isFreePlan = !apiKeyData || apiKeyData?.plan?.toLowerCase() === 'free';
+  const isProPlan = apiKeyData?.plan?.toLowerCase() === 'pro';
 
   // Check authentication and redirect if not logged in
   useEffect(() => {
@@ -97,8 +98,10 @@ const ApiKeyPage = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      // For free users, validate API key input
-      if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
+      const requestBody = { name: user.email };
+      
+      // For free users, validate and include API key input
+      if (isFreePlan) {
         if (!userApiKey.trim()) {
           setMessage({ type: 'error', text: 'Please enter your API key' });
           setIsGenerating(false);
@@ -110,12 +113,7 @@ const ApiKeyPage = () => {
           setIsGenerating(false);
           return;
         }
-      }
 
-      const requestBody = { name: user.email };
-      
-      // Add API key for free users
-      if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
         requestBody.api_key = userApiKey.trim();
       }
 
@@ -396,7 +394,7 @@ const ApiKeyPage = () => {
                 )}
 
                 {/* Subscription Action Buttons - Only show for active subscriptions */}
-                {apiKeyData && apiKeyData.plan?.toLowerCase() === 'pro' && apiKeyData.subscription_status === 'active' && (
+                {apiKeyData && isProPlan && apiKeyData.subscription_status === 'active' && (
                   <div className="flex gap-2">
                     <button
                       onClick={cancelSubscription}
@@ -470,8 +468,8 @@ const ApiKeyPage = () => {
                       <Shield className="w-5 h-5 text-green-400 mr-2" />
                       Your API Key
                     </h3>
-                    {/* Only show eye button if we have the real key */}
-                    {apiKeyData.showingRealKey && (
+                    {/* Only show eye button for Pro users with real key */}
+                    {isProPlan && apiKeyData.showingRealKey && (
                       <button
                         onClick={() => setShowApiKey(!showApiKey)}
                         className="text-gray-400 hover:text-white transition-colors"
@@ -481,8 +479,8 @@ const ApiKeyPage = () => {
                     )}
                   </div>
                   
-                  {/* Security warning banner */}
-                  {apiKeyData.showingRealKey && (
+                  {/* Security warning banner for Pro users */}
+                  {isProPlan && apiKeyData.showingRealKey && (
                     <div className="bg-red-900/20 border border-red-500/30 text-red-400 p-4 rounded-lg mb-4 flex items-start">
                       <AlertCircle className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" />
                       <div className="text-sm">
@@ -493,18 +491,18 @@ const ApiKeyPage = () => {
                   )}
                   
                   <div className="bg-gray-900/50 rounded-lg p-4 font-mono text-sm mb-4">
-                    {apiKeyData.showingRealKey ? (
-                      // Show real key or hidden based on showApiKey state
+                    {isProPlan && apiKeyData.showingRealKey ? (
+                      // Show real key or hidden based on showApiKey state for Pro users
                       showApiKey ? apiKeyData.realApiKey || apiKeyData.api_key : '••••••••••••••••••••••••••••••••'
                     ) : (
-                      // Always show masked version when not showing real key
+                      // Always show masked version for Free users or when not showing real key
                       apiKeyData.api_key
                     )}
                   </div>
                   
                   <div className="flex gap-3">
-                    {/* Only show copy button when showing real key */}
-                    {apiKeyData.showingRealKey && (
+                    {/* Only show copy button for Pro users when showing real key */}
+                    {isProPlan && apiKeyData.showingRealKey && (
                       <button
                         onClick={() => copyToClipboard(apiKeyData.realApiKey || apiKeyData.api_key)}
                         className="flex items-center bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 px-4 py-2 rounded-lg transition-colors"
@@ -533,17 +531,20 @@ const ApiKeyPage = () => {
                   </div>
                   
                   {/* Additional info for masked keys */}
-                  {!apiKeyData.showingRealKey && (
+                  {(!isProPlan || !apiKeyData.showingRealKey) && (
                     <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
                       <p className="text-blue-400 text-sm flex items-center">
                         <Shield className="w-4 h-4 mr-2" />
-                        This is a masked version for security. Your real API key is safely stored and encrypted.
+                        {isFreePlan 
+                          ? 'Your API key is safely stored and encrypted. We use it to make requests on your behalf.'
+                          : 'This is a masked version for security. Your real API key is safely stored and encrypted.'
+                        }
                       </p>
                     </div>
                   )}
                 </div>
 
-                {/* Usage Statistics - Daily limits for both plans */}
+                {/* Usage Statistics */}
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-blue-600/10 rounded-lg p-6 border border-blue-500/20">
                     <div className="text-blue-400 text-sm font-medium mb-2">Daily Limit</div>
@@ -561,7 +562,7 @@ const ApiKeyPage = () => {
                   </div>
                 </div>
 
-                {/* Usage Progress Bar - Daily limits for both plans */}
+                {/* Usage Progress Bar */}
                 <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-600">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-medium">Daily Usage</span>
@@ -591,21 +592,21 @@ const ApiKeyPage = () => {
                 </div>
               </div>
             ) : (
-              /* Generate API Key Section */
+              /* Generate/Store API Key Section */
               <div className="text-center py-12">
                 <div className="bg-gray-700/30 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Key className="w-12 h-12 text-gray-400" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">No API Key Found</h3>
                 <p className="text-gray-300 mb-8 max-w-md mx-auto">
-                  {!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free' 
+                  {isFreePlan 
                     ? 'Enter your OpenRouter API key to start using the Forge API for code processing and refactoring.'
                     : 'Generate your first API key to start using the Forge API for code processing and refactoring.'
                   }
                 </p>
                 
                 {/* API Key Input for Free Users */}
-                {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') && (
+                {isFreePlan && (
                   <div className="mb-8 max-w-md mx-auto">
                     <label className="block text-left text-sm font-medium mb-3 text-gray-300">
                       Enter Your OpenRouter API Key
@@ -646,12 +647,12 @@ const ApiKeyPage = () => {
                   {isGenerating ? (
                     <>
                       <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Storing...' : 'Generating...'}
+                      {isFreePlan ? 'Storing...' : 'Generating...'}
                     </>
                   ) : (
                     <>
                       <Key className="w-5 h-5 mr-2" />
-                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Store API Key' : 'Generate API Key'}
+                      {isFreePlan ? 'Store API Key' : 'Generate API Key'}
                     </>
                   )}
                 </button>
