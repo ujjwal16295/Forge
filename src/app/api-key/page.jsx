@@ -631,7 +631,7 @@ const ApiKeyPage = () => {
                     {/* Info box for free users */}
                     <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg text-left">
                       <p className="text-blue-400 text-sm">
-                        <strong>Free Plan:</strong> Provide your own API key (OpenAI, Anthropic, etc.). 
+                        <strong>Free Plan:</strong> Provide your own API key from OpenRouter. 
                         We'll securely store it encrypted for your use with the Forge API.
                       </p>
                     </div>
