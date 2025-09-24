@@ -61,20 +61,26 @@ const TermsOfService = () => {
             </ul>
           </div>
 
-          {/* Section 3 */}
+          {/* Section 3 - Updated */}
           <div className="mb-12 p-8 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-2xl border border-purple-500/20">
             <h2 className="text-2xl font-bold text-white mb-4">3. API Keys and Account</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
-              To use Forge, you must obtain an API key from our website. You are responsible for:
+              <strong>Free Users:</strong> You must obtain your own API key from OpenRouter and paste it in the API Key tab on our website. We use this key solely for usage tracking purposes.
+            </p>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>Pro Users:</strong> You must generate an API key from our website to access the service.
+            </p>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              For both plans, you are responsible for:
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
-              <li>Keeping your API key secure and confidential</li>
-              <li>Not sharing your API key with unauthorized parties</li>
+              <li>Keeping your API credentials secure and confidential</li>
+              <li>Not sharing your API access with unauthorized parties</li>
               <li>Reporting any suspected unauthorized use immediately</li>
-              <li>All activities that occur using your API key</li>
+              <li>All activities that occur using your API access</li>
             </ul>
             <p className="text-gray-300 leading-relaxed">
-              We reserve the right to revoke or suspend API keys that violate these terms or show suspicious activity.
+              <strong>API Key Security:</strong> Your OpenRouter API key is stored securely and used only for processing your requests and tracking usage. We do not access or use your key for any other purposes.
             </p>
           </div>
 
@@ -108,11 +114,16 @@ const TermsOfService = () => {
                 <h3 className="text-lg font-semibold text-blue-400">Free Plan</h3>
               </div>
               <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
-                <li>Powered by <strong>Deepseek AI</strong> model</li>
-                <li>3 total lifetime uses</li>
-                <li>Code refactoring and basic optimization</li>
-                <li>All core features included</li>
-                <li>No recurring payments</li>
+                <li>Requires your own <strong>OpenRouter API key</strong></li>
+                <li>Access to <strong>Qwen</strong> and <strong>Deepseek</strong> AI models</li>
+                <li><strong>50 uses per day</strong> (resets daily at midnight)</li>
+                <li>All core features included (same as Pro)</li>
+                <li>Code refactoring and optimization</li>
+                <li>Security vulnerability detection</li>
+                <li>Custom file generation</li>
+                <li>Advanced file optimization</li>
+                <li>Safe Git integration</li>
+                <li>Usage tracked for your reference</li>
               </ul>
             </div>
 
@@ -124,16 +135,20 @@ const TermsOfService = () => {
                 <span className="text-xs text-gray-400 ml-2">(exclusive of tax)</span>
               </div>
               <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
+                <li>Generate API key from <strong>our website</strong></li>
                 <li>Powered by <strong>GPT-5-mini</strong> premium AI model</li>
                 <li>10 uses per day (resets daily at midnight)</li>
+                <li>All features included (same as Free)</li>
                 <li>Enhanced AI performance and capabilities</li>
-                <li>Custom file generation with intelligent integration</li>
-                <li>Advanced file optimization features</li>
-                <li>All features from Free plan</li>
                 <li>Priority support</li>
+                <li>Managed AI model access</li>
               </ul>
             </div>
 
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>Key Differences:</strong> Both plans offer identical features. Free users bring their own OpenRouter API key and can use Qwen/Deepseek models, while Pro users generate an API key from our website to access GPT-5-mini with managed AI model access.
+            </p>
+            
             <p className="text-gray-300 leading-relaxed mb-4">
               We reserve the right to:
             </p>
@@ -166,7 +181,7 @@ const TermsOfService = () => {
               <strong>Subscription Cancellation:</strong> You may cancel your Pro subscription at any time to prevent future charges, but you will continue to have access to Pro features until the end of your current billing period. No refund will be provided for the remaining portion of your subscription.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              <strong>Free Trial:</strong> We recommend starting with our Free plan to evaluate the service before upgrading to Pro. This allows you to test our AI models and features without financial commitment.
+              <strong>Free Trial:</strong> We recommend starting with our Free plan to evaluate the service. You'll need to set up your own OpenRouter API key, but you'll have access to all the same features as Pro users with Qwen and Deepseek models.
             </p>
           </div>
 
@@ -176,6 +191,9 @@ const TermsOfService = () => {
             <p className="text-gray-300 leading-relaxed mb-4">
               <strong>Pro Plan Billing:</strong> Pro subscriptions are billed monthly in advance. Payments are processed through our secure payment provider.
             </p>
+            <p className="text-gray-300 leading-relaxed mb-4">
+              <strong>Free Plan Costs:</strong> Free users are responsible for their own OpenRouter API usage costs, which are charged directly by OpenRouter based on your usage of Qwen and Deepseek models.
+            </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
               <li>Monthly subscriptions automatically renew unless cancelled</li>
               <li>Payment is due immediately upon subscription</li>
@@ -184,7 +202,7 @@ const TermsOfService = () => {
               <li>You are responsible for any bank or payment processing fees</li>
             </ul>
             <p className="text-gray-300 leading-relaxed">
-              <strong>Usage Tracking:</strong> Pro plan usage resets daily at midnight UTC. Unused daily usage does not roll over to the next day.
+              <strong>Usage Tracking:</strong> Free users get 50 uses per day, Pro users get 10 uses per day. Usage resets daily at midnight UTC, and unused daily usage does not roll over to the next day.
             </p>
           </div>
 
@@ -215,7 +233,7 @@ const TermsOfService = () => {
               <strong>Service Availability:</strong> We strive for high availability but cannot guarantee uninterrupted service.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>AI Suggestions:</strong> Our AI models (Deepseek and GPT-5-mini) provide suggestions for refactoring, optimization, and file generation based on best practices, but you remain responsible for reviewing and testing all changes and generated code.
+              <strong>AI Suggestions:</strong> Our AI models (Qwen, Deepseek, and GPT-5-mini) provide suggestions for refactoring, optimization, and file generation based on best practices, but you remain responsible for reviewing and testing all changes and generated code.
             </p>
             <p className="text-gray-300 leading-relaxed">
               <strong>Limitation of Liability:</strong> Forge is provided "as is" without warranties. We are not liable for any damages arising from the use of our service, including but not limited to code changes, security vulnerabilities, or business losses.

@@ -53,8 +53,8 @@ const ForgeFeatures = () => {
         {
           icon: RefreshCw,
           title: "Complete File Replacement",
-          description: "Rewrites entire codebases while preserving unselected files using Deepseek (free) or GPT-5-mini (paid)",
-          benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements", "Choice of AI models"]
+          description: "Rewrites entire codebases while preserving unselected files. Free users get Deepseek and Qwen, Pro users get GPT-5-mini",
+          benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements", "Multiple AI model options"]
         },
         {
           icon: Target,
@@ -78,30 +78,26 @@ const ForgeFeatures = () => {
         {
           icon: PlusCircle,
           title: "Smart File Creation",
-          description: "Generate completely new files based on user prompts while following existing project patterns and structure",
-          benefits: ["Context-aware generation", "Follows project conventions", "Production-ready code", "Complete functionality"],
-          isPro: true
+          description: "Generate completely new files based on user prompts while following existing project patterns. Available for all users with their respective AI models",
+          benefits: ["Context-aware generation", "Follows project conventions", "Production-ready code", "Complete functionality"]
         },
         {
           icon: Wand2,
           title: "Intelligent Integration",
-          description: "Automatically integrates with existing codebase, suggesting new dependencies and configuration changes",
-          benefits: ["Seamless integration", "Dependency management", "Configuration updates", "README instructions"],
-          isPro: true
+          description: "Automatically integrates with existing codebase, suggesting new dependencies and configuration changes. Works with all AI models",
+          benefits: ["Seamless integration", "Dependency management", "Configuration updates", "README instructions"]
         },
         {
           icon: Shield,
           title: "Security-First Approach",
-          description: "Extracts hardcoded secrets and replaces them with environment variables during generation",
-          benefits: ["Automatic secret detection", "Environment variable setup", "Security best practices", "No hardcoded credentials"],
-          isPro: true
+          description: "Extracts hardcoded secrets and replaces them with environment variables during generation. Available across all tiers",
+          benefits: ["Automatic secret detection", "Environment variable setup", "Security best practices", "No hardcoded credentials"]
         },
         {
           icon: FileCode,
           title: "File Modification Support",
-          description: "Can completely rewrite existing files when modifications are requested, maintaining full functionality",
-          benefits: ["Complete file rewrites", "Maintains functionality", "No placeholders", "Working code only"],
-          isPro: true
+          description: "Can completely rewrite existing files when modifications are requested, maintaining full functionality. All users supported",
+          benefits: ["Complete file rewrites", "Maintains functionality", "No placeholders", "Working code only"]
         }
       ]
     },
@@ -113,30 +109,26 @@ const ForgeFeatures = () => {
         {
           icon: Cpu,
           title: "Performance Improvements",
-          description: "Optimizes algorithms, reduces memory usage, and improves code execution efficiency in selected files",
-          benefits: ["Algorithm optimization", "Memory usage reduction", "Performance improvements", "Execution efficiency"],
-          isPro: true
+          description: "Optimizes algorithms, reduces memory usage, and improves code execution efficiency. Available with all AI models",
+          benefits: ["Algorithm optimization", "Memory usage reduction", "Performance improvements", "Execution efficiency"]
         },
         {
           icon: Code,
           title: "Code Quality Enhancement",
-          description: "Improves code structure, error handling, and readability while maintaining functionality",
-          benefits: ["Better code structure", "Enhanced error handling", "Improved readability", "Code quality standards"],
-          isPro: true
+          description: "Improves code structure, error handling, and readability while maintaining functionality. Works across all tiers",
+          benefits: ["Better code structure", "Enhanced error handling", "Improved readability", "Code quality standards"]
         },
         {
           icon: Sparkles,
           title: "Modern Syntax Updates",
-          description: "Updates code to use modern JavaScript/TypeScript syntax and patterns",
-          benefits: ["Modern syntax", "Latest language features", "Best practice patterns", "Code modernization"],
-          isPro: true
+          description: "Updates code to use modern JavaScript/TypeScript syntax and patterns. Available for all users",
+          benefits: ["Modern syntax", "Latest language features", "Best practice patterns", "Code modernization"]
         },
         {
           icon: Trash2,
           title: "Code Cleanup",
-          description: "Removes unused imports, variables, and dead code while consolidating related imports",
-          benefits: ["Unused import removal", "Dead code elimination", "Import consolidation", "Code cleanup"],
-          isPro: true
+          description: "Removes unused imports, variables, and dead code while consolidating related imports. All AI models supported",
+          benefits: ["Unused import removal", "Dead code elimination", "Import consolidation", "Code cleanup"]
         }
       ]
     },
@@ -284,7 +276,7 @@ const ForgeFeatures = () => {
               
               <div className="flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-indigo-400 mr-3" />
-                <h3 className="text-xl font-semibold text-indigo-400">Latest AI Features Available</h3>
+                <h3 className="text-xl font-semibold text-indigo-400">All Features Available for Both Tiers</h3>
               </div>
               
               <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -295,8 +287,13 @@ const ForgeFeatures = () => {
                     <h4 className="font-semibold text-blue-400">Free Users</h4>
                   </div>
                   <div className="text-gray-200 space-y-2">
-                    <p><span className="font-semibold text-blue-300">Deepseek</span> - Code Refactoring</p>
-                    <p className="text-sm text-gray-400">Full refactoring capabilities</p>
+                    <p><span className="font-semibold text-blue-300">Deepseek & Qwen</span> - All Features</p>
+                    <div className="text-sm text-gray-300 space-y-1">
+                      <p>• Code Refactoring</p>
+                      <p>• Custom File Generation</p>
+                      <p>• File Optimization</p>
+                      <p>• Complete Feature Access</p>
+                    </div>
                   </div>
                 </div>
                 
@@ -310,8 +307,9 @@ const ForgeFeatures = () => {
                     <p><span className="font-semibold text-yellow-300">GPT-5-mini</span> - All Features</p>
                     <div className="text-sm text-gray-300 space-y-1">
                       <p>• Code Refactoring</p>
-                      <p>• <span className="text-emerald-300 font-semibold">Custom File Generation</span></p>
-                      <p>• <span className="text-orange-300 font-semibold">File Optimization</span></p>
+                      <p>• Custom File Generation</p>
+                      <p>• File Optimization</p>
+                      <p>• Premium AI Model</p>
                     </div>
                   </div>
                 </div>
@@ -320,33 +318,29 @@ const ForgeFeatures = () => {
               <div className="mt-4 text-gray-300">
                 <p>Currently supporting <span className="font-semibold text-indigo-300">Next.js and React.js</span> projects</p>
                 <p className="text-sm text-gray-400 mt-2">
-                  <span className="text-emerald-300">New:</span> Custom file generation and optimization features now available for Pro users
+                  <span className="text-emerald-300">Equal Access:</span> All users get the same powerful features, just with different AI models
                 </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Updated Category Navigation */}
+        {/* Updated Category Navigation - Removed Crown Icons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {Object.entries(featureCategories).map(([key, category]) => {
             const colorClasses = getColorClasses(category.color);
-            const hasProFeatures = category.features?.some(f => f.isPro);
             
             return (
               <button
                 key={key}
                 onClick={() => setActiveCategory(key)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 relative ${
+                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                   activeCategory === key
                     ? `bg-gradient-to-r ${colorClasses.gradient} text-white`
                     : `bg-gray-800/50 text-gray-300 hover:bg-gray-700/50`
                 }`}
               >
                 {category.title}
-                {hasProFeatures && (
-                  <Crown className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1" />
-                )}
               </button>
             );
           })}
@@ -365,7 +359,7 @@ const ForgeFeatures = () => {
             </p>
           </div>
 
-          {/* Features Grid */}
+          {/* Features Grid - Removed PRO badges */}
           <div className="grid lg:grid-cols-2 gap-8">
             {featureCategories[activeCategory].features.map((feature, index) => {
               const colorClasses = getColorClasses(featureCategories[activeCategory].color);
@@ -374,17 +368,8 @@ const ForgeFeatures = () => {
               return (
                 <div
                   key={index}
-                  className={`bg-gradient-to-br ${colorClasses.bg} p-8 rounded-2xl border ${colorClasses.border} hover:border-opacity-60 transition-all duration-300 group hover:transform hover:scale-105 backdrop-blur-sm relative`}
+                  className={`bg-gradient-to-br ${colorClasses.bg} p-8 rounded-2xl border ${colorClasses.border} hover:border-opacity-60 transition-all duration-300 group hover:transform hover:scale-105 backdrop-blur-sm`}
                 >
-                  {feature.isPro && (
-                    <div className="absolute top-4 right-4">
-                      <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center">
-                        <Crown className="w-3 h-3 mr-1" />
-                        PRO
-                      </div>
-                    </div>
-                  )}
-                  
                   <div className={`${colorClasses.button} w-16 h-16 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300`}>
                     <Icon className={`w-8 h-8 ${colorClasses.accent}`} />
                   </div>

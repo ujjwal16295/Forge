@@ -291,16 +291,16 @@ const Pricing = () => {
           <div className="text-center mb-16">
             <div className="inline-flex items-center bg-gray-800/50 rounded-full px-6 py-3 mb-8 backdrop-blur-sm border border-gray-700">
               <Star className="w-5 h-5 text-yellow-400 mr-2" />
-              <span className="text-sm">Simple, Transparent Pricing</span>
+              <span className="text-sm">Same Features, Different Models</span>
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Choose Your
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> Plan</span>
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"> AI Model</span>
             </h2>
             
             <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-              Start free with Deepseek AI or upgrade to Pro for GPT-5-mini with enhanced capabilities.
+              All features included in both plans. Free users get Deepseek & Qwen via OpenRouter, Pro users get GPT-5-mini.
             </p>
 
             {/* Authentication Status Indicator */}
@@ -344,30 +344,38 @@ const Pricing = () => {
                   Free
                 </h3>
                 <div className="text-4xl font-bold mb-1">$0</div>
-                <p className="text-gray-400 mb-4">Perfect for trying out Forge</p>
+                <p className="text-gray-400 mb-4">Bring your own OpenRouter API key</p>
                 
                 {/* AI Model Badge */}
                 <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-3 mb-4">
                   <div className="flex items-center justify-center text-blue-400 font-semibold mb-1">
                     <Bot className="w-5 h-5 mr-2" />
-                    Powered by Deepseek AI
+                    Deepseek & Qwen via OpenRouter
                   </div>
-                  <p className="text-xs text-gray-400">Advanced AI model for code refactoring</p>
+                  <p className="text-xs text-gray-400">Use your OpenRouter API key for free models</p>
                 </div>
                 
                 {/* Usage Limit Badge */}
                 <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-3 mb-6">
                   <div className="flex items-center justify-center text-gray-300 font-semibold">
-                    <Infinity className="w-5 h-5 mr-2" />
-                    3 Total Lifetime Uses
+                    <Calendar className="w-5 h-5 mr-2" />
+                    50 Uses Per Day
                   </div>
-                  <p className="text-xs text-gray-400 mt-1">Once exhausted, upgrade to Pro</p>
+                  <p className="text-xs text-gray-400 mt-1">Resets daily at midnight</p>
                 </div>
                 
                 <div className="space-y-4 mb-8 text-left">
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
                     <span>Complete file replacement & refactoring</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    <span>Custom file generation</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    <span>File optimization</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
@@ -412,7 +420,7 @@ const Pricing = () => {
                   <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">10</span>
                 </div>
                 <p className="text-xs text-gray-500 mb-1">exclusive of tax</p>
-                <p className="text-gray-400 mb-4">For regular development work</p>
+                <p className="text-gray-400 mb-4">Premium AI model included</p>
                 
                 {/* AI Model Badge */}
                 <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-lg p-3 mb-4">
@@ -439,6 +447,14 @@ const Pricing = () => {
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    <span>Custom file generation</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
+                    <span>File optimization</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
                     <span>React/Next.js project detection</span>
                   </div>
                   <div className="flex items-center">
@@ -455,20 +471,12 @@ const Pricing = () => {
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-                    <span className="text-purple-300 font-semibold">Daily usage renewal</span>
+                    <span className="text-purple-300 font-semibold">API key generated from website</span>
                   </div>
                   <div className="flex items-center">
                     <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
                     <span className="text-purple-300 font-semibold">Enhanced AI performance</span>
                   </div>
-                  <div className="flex items-center">
-    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-    <span className="text-purple-300 font-semibold">Custom file generation</span>
-  </div>
-  <div className="flex items-center">
-    <Check className="w-5 h-5 text-purple-400 mr-3 flex-shrink-0" />
-    <span className="text-purple-300 font-semibold">File optimization</span>
-  </div>
                 </div>
                 
                 {getPlanButton('pro', 'Pro')}

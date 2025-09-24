@@ -13,8 +13,12 @@ const ApiKeyPage = () => {
   const [showApiKey, setShowApiKey] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [copySuccess, setCopySuccess] = useState(false);
+  
+  // New state for free user API key input
+  const [userApiKey, setUserApiKey] = useState('');
+  const [showUserApiKey, setShowUserApiKey] = useState(false);
 
-  // Check if plan is free
+  // Check if plan is free (keeping for other conditional logic)
   const isFree = apiKeyData?.plan?.toLowerCase() === 'free';
 
   // Check authentication and redirect if not logged in
@@ -93,45 +97,78 @@ const ApiKeyPage = () => {
     setMessage({ type: '', text: '' });
 
     try {
+      // For free users, validate API key input
+      if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
+        if (!userApiKey.trim()) {
+          setMessage({ type: 'error', text: 'Please enter your API key' });
+          setIsGenerating(false);
+          return;
+        }
+
+        if (userApiKey.trim().length < 10) {
+          setMessage({ type: 'error', text: 'API key appears to be too short. Please enter a valid API key.' });
+          setIsGenerating(false);
+          return;
+        }
+      }
+
+      const requestBody = { name: user.email };
+      
+      // Add API key for free users
+      if (isFree || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') {
+        requestBody.api_key = userApiKey.trim();
+      }
+
       const response = await fetch('https://smart-converter-backend-5zmh.onrender.com/api/generate-api-key', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: user.email }),
+        body: JSON.stringify(requestBody),
       });
 
       const result = await response.json();
 
       if (result.success) {
-        // Show the real API key only once with a warning
-        setApiKeyData({
-          ...result.data,
-          showingRealKey: true, // Flag to show this is the real key
-          realApiKey: result.data.api_key // Store the real key temporarily
-        });
+        const userPlan = result.data.plan?.toLowerCase();
         
-        setShowApiKey(true); // Force show the key
-        setMessage({ 
-          type: 'success', 
-          text: 'IMPORTANT: This is your API key. Copy it now - you won\'t be able to see it again!' 
-        });
-        
-        // After 30 seconds, hide the real key and show masked version
-        setTimeout(async () => {
-          await fetchApiKeyData(user.email);
-          setShowApiKey(false);
+        if (userPlan === 'free') {
+          // For free users, just show success message and refresh data
+          setApiKeyData(result.data);
           setMessage({ 
-            type: 'warning', 
-            text: 'API key is now hidden for security. You can only see a masked version.' 
+            type: 'success', 
+            text: 'API key stored successfully! You can now use the Forge API.' 
           });
-        }, 30000);
-        
+          setUserApiKey(''); // Clear the input
+        } else {
+          // For pro users, show the real API key only once with a warning
+          setApiKeyData({
+            ...result.data,
+            showingRealKey: true, // Flag to show this is the real key
+            realApiKey: result.data.api_key // Store the real key temporarily
+          });
+          
+          setShowApiKey(true); // Force show the key
+          setMessage({ 
+            type: 'success', 
+            text: 'IMPORTANT: This is your API key. Copy it now - you won\'t be able to see it again!' 
+          });
+          
+          // After 30 seconds, hide the real key and show masked version
+          setTimeout(async () => {
+            await fetchApiKeyData(user.email);
+            setShowApiKey(false);
+            setMessage({ 
+              type: 'warning', 
+              text: 'API key is now hidden for security. You can only see a masked version.' 
+            });
+          }, 30000);
+        }
       } else {
-        setMessage({ type: 'error', text: result.error || 'Failed to generate API key' });
+        setMessage({ type: 'error', text: result.error || 'Failed to process API key' });
       }
     } catch (error) {
-      console.error('Error generating API key:', error);
+      console.error('Error processing API key:', error);
       setMessage({ type: 'error', text: 'Network error occurred' });
     } finally {
       setIsGenerating(false);
@@ -158,6 +195,7 @@ const ApiKeyPage = () => {
       if (result.success) {
         setApiKeyData(null);
         setShowApiKey(false);
+        setUserApiKey(''); // Clear the input
         setMessage({ type: 'success', text: 'API key deleted successfully!' });
       } else {
         setMessage({ type: 'error', text: result.error || 'Failed to delete API key' });
@@ -505,19 +543,15 @@ const ApiKeyPage = () => {
                   )}
                 </div>
 
-                {/* Usage Statistics - Modified for Free Plan */}
+                {/* Usage Statistics - Daily limits for both plans */}
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="bg-blue-600/10 rounded-lg p-6 border border-blue-500/20">
-                    <div className="text-blue-400 text-sm font-medium mb-2">
-                      {isFree ? 'Lifetime Limit' : 'Daily Limit'}
-                    </div>
+                    <div className="text-blue-400 text-sm font-medium mb-2">Daily Limit</div>
                     <div className="text-3xl font-bold">{apiKeyData.limit}</div>
                   </div>
                   
                   <div className="bg-green-600/10 rounded-lg p-6 border border-green-500/20">
-                    <div className="text-green-400 text-sm font-medium mb-2">
-                      {isFree ? 'Total Used' : 'Used Today'}
-                    </div>
+                    <div className="text-green-400 text-sm font-medium mb-2">Used Today</div>
                     <div className="text-3xl font-bold">{apiKeyData.count}</div>
                   </div>
                   
@@ -527,12 +561,10 @@ const ApiKeyPage = () => {
                   </div>
                 </div>
 
-                {/* Usage Progress Bar - Modified for Free Plan */}
+                {/* Usage Progress Bar - Daily limits for both plans */}
                 <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-600">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium">
-                      {isFree ? 'Lifetime Usage' : 'Daily Usage'}
-                    </span>
+                    <span className="text-sm font-medium">Daily Usage</span>
                     <span className="text-sm text-gray-400">
                       {apiKeyData.count}/{apiKeyData.limit} requests
                     </span>
@@ -553,21 +585,8 @@ const ApiKeyPage = () => {
                   </div>
                   {apiKeyData.is_limit_reached && (
                     <p className="text-red-400 text-sm mt-2">
-                      {isFree 
-                        ? 'Lifetime limit reached. Please upgrade to a paid plan for more requests.'
-                        : 'Daily limit reached. Your usage will reset tomorrow.'
-                      }
+                      Daily limit reached. Your usage will reset tomorrow.
                     </p>
-                  )}
-                  
-                  {/* Free plan specific message */}
-                  {isFree && !apiKeyData.is_limit_reached && (
-                    <div className="mt-3 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-                      <p className="text-blue-400 text-sm">
-                        <strong>Free Plan:</strong> This is your lifetime usage limit. No daily reset. 
-                        Upgrade to Pro for unlimited daily requests with daily reset.
-                      </p>
-                    </div>
                   )}
                 </div>
               </div>
@@ -579,8 +598,46 @@ const ApiKeyPage = () => {
                 </div>
                 <h3 className="text-2xl font-bold mb-4">No API Key Found</h3>
                 <p className="text-gray-300 mb-8 max-w-md mx-auto">
-                  Generate your first API key to start using the Forge API for code processing and refactoring.
+                  {!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free' 
+                    ? 'Enter your OpenRouter API key to start using the Forge API for code processing and refactoring.'
+                    : 'Generate your first API key to start using the Forge API for code processing and refactoring.'
+                  }
                 </p>
+                
+                {/* API Key Input for Free Users */}
+                {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') && (
+                  <div className="mb-8 max-w-md mx-auto">
+                    <label className="block text-left text-sm font-medium mb-3 text-gray-300">
+                      Enter Your OpenRouter API Key
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showUserApiKey ? "text" : "password"}
+                        value={userApiKey}
+                        onChange={(e) => setUserApiKey(e.target.value)}
+                        placeholder="sk-1234567890abcdef..."
+                        className="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        disabled={isGenerating}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowUserApiKey(!showUserApiKey)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                      >
+                        {showUserApiKey ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      </button>
+                    </div>
+                    
+                    {/* Info box for free users */}
+                    <div className="mt-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg text-left">
+                      <p className="text-blue-400 text-sm">
+                        <strong>Free Plan:</strong> Provide your own API key (OpenAI, Anthropic, etc.). 
+                        We'll securely store it encrypted for your use with the Forge API.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                
                 <button
                   onClick={generateApiKey}
                   disabled={isGenerating}
@@ -589,12 +646,12 @@ const ApiKeyPage = () => {
                   {isGenerating ? (
                     <>
                       <RefreshCw className="w-5 h-5 mr-2 animate-spin" />
-                      Generating...
+                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Storing...' : 'Generating...'}
                     </>
                   ) : (
                     <>
                       <Key className="w-5 h-5 mr-2" />
-                      Generate API Key
+                      {(!user || !apiKeyData?.plan || apiKeyData?.plan?.toLowerCase() === 'free') ? 'Store API Key' : 'Generate API Key'}
                     </>
                   )}
                 </button>

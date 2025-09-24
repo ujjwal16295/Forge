@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Play, Pause, CheckCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, Pause, CheckCircle, Key, ExternalLink, CreditCard, Users } from 'lucide-react';
 
 export const HowToUse = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -306,6 +306,148 @@ export const HowToUse = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* API Key Section */}
+        <div className="mt-16">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Get Your API Key
+              </span>
+            </h3>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Choose your plan and get your API key to start using the extension
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Free Users */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-2xl border border-gray-700/30 backdrop-blur-sm p-8 hover:border-blue-500/30 transition-all duration-300">
+              <div className="text-center mb-6">
+                <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-4 rounded-2xl w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-10 h-10 text-blue-400" />
+                </div>
+                <h4 className="text-2xl font-bold mb-2">
+                  <span className="bg-gradient-to-r from-blue-400 to-cyan-600 bg-clip-text text-transparent">
+                    Free Users
+                  </span>
+                </h4>
+                <p className="text-gray-400 text-lg">Get started with OpenRouter</p>
+              </div>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <Key className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 1: Visit OpenRouter</p>
+                    <p className="text-gray-400 text-sm">Go to OpenRouter LLM platform to get your free API key</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <CheckCircle className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 2: Generate API Key</p>
+                    <p className="text-gray-400 text-sm">Create your account and generate your API key</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <Key className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 3: Add to Website</p>
+                    <p className="text-gray-400 text-sm">Paste your OpenRouter API key in the API Key tab on this website</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <CheckCircle className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 4: Use in Extension</p>
+                    <p className="text-gray-400 text-sm">Copy your API key from the website and paste it in the extension's API Key tab</p>
+                  </div>
+                </div>
+              </div>
+
+              <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group">
+                <span>Get OpenRouter API Key</span>
+                <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Paid Users */}
+            <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 rounded-2xl border border-gray-700/30 backdrop-blur-sm p-8 hover:border-purple-500/30 transition-all duration-300">
+              <div className="text-center mb-6">
+                <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 p-4 rounded-2xl w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <CreditCard className="w-10 h-10 text-purple-400" />
+                </div>
+                <h4 className="text-2xl font-bold mb-2">
+                  <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                    Paid Users
+                  </span>
+                </h4>
+                <p className="text-gray-400 text-lg">Premium features & support</p>
+              </div>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <Key className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 1: Navigate to API Tab</p>
+                    <p className="text-gray-400 text-sm">Go to the API Key tab in this page</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <CheckCircle className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 2: Generate Your Key</p>
+                    <p className="text-gray-400 text-sm">Click generate to create your premium API key</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
+                    <Key className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium mb-1">Step 3: Use in Extension</p>
+                    <p className="text-gray-400 text-sm">Copy and paste your API key in the extension</p>
+                  </div>
+                </div>
+              </div>
+
+              <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group">
+                <span>Go to API Key Tab</span>
+                <Key className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+              </button>
+            </div>
+          </div>
+
+          {/* Additional Info */}
+          <div className="mt-8 text-center">
+            <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 p-6 rounded-2xl border border-blue-500/20 max-w-4xl mx-auto">
+              <h5 className="text-lg font-bold mb-2 text-white">Important Note</h5>
+              <p className="text-gray-300 leading-relaxed">
+                Your API key is securely stored locally and never shared with third parties. 
+                Make sure to keep your API key confidential and don't share it with others. 
+                If you suspect your key has been compromised, generate a new one immediately.
+              </p>
             </div>
           </div>
         </div>
