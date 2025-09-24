@@ -379,11 +379,6 @@ export const HowToUse = () => {
                   </div>
                 </div>
               </div>
-
-              <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group">
-                <span>Get OpenRouter API Key</span>
-                <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
 
             {/* Paid Users */}
@@ -431,11 +426,6 @@ export const HowToUse = () => {
                   </div>
                 </div>
               </div>
-
-              <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group">
-                <span>Go to API Key Tab</span>
-                <Key className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              </button>
             </div>
           </div>
 
