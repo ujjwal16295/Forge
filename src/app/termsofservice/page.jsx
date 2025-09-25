@@ -116,7 +116,7 @@ const TermsOfService = () => {
               <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
                 <li>Requires your own <strong>OpenRouter API key</strong></li>
                 <li>Access to <strong>Qwen</strong> and <strong>Deepseek</strong> AI models</li>
-                <li><strong>50 uses per day</strong> (resets daily at midnight)</li>
+                <li><strong>10 uses per day</strong> (resets daily at midnight)</li>
                 <li>All core features included (same as Pro)</li>
                 <li>Code refactoring and optimization</li>
                 <li>Security vulnerability detection</li>
@@ -202,7 +202,7 @@ const TermsOfService = () => {
               <li>You are responsible for any bank or payment processing fees</li>
             </ul>
             <p className="text-gray-300 leading-relaxed">
-              <strong>Usage Tracking:</strong> Free users get 50 uses per day, Pro users get 10 uses per day. Usage resets daily at midnight UTC, and unused daily usage does not roll over to the next day.
+              <strong>Usage Tracking:</strong> Free users get 10 uses per day, Pro users get 10 uses per day. Usage resets daily at midnight UTC, and unused daily usage does not roll over to the next day.
             </p>
           </div>
 
