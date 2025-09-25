@@ -53,7 +53,7 @@ const ForgeFeatures = () => {
         {
           icon: RefreshCw,
           title: "Complete File Replacement",
-          description: "Rewrites entire codebases while preserving unselected files. Free users get Deepseek and Qwen, Pro users get GPT-5-mini",
+          description: "Rewrites entire codebases while preserving unselected files. Free users get Deepseek , Pro users get GPT-5-mini",
           benefits: ["Full codebase transformation", "Preserves unselected files", "AI-powered improvements", "Multiple AI model options"]
         },
         {
@@ -287,7 +287,7 @@ const ForgeFeatures = () => {
                     <h4 className="font-semibold text-blue-400">Free Users</h4>
                   </div>
                   <div className="text-gray-200 space-y-2">
-                    <p><span className="font-semibold text-blue-300">Deepseek & Qwen</span> - All Features</p>
+                    <p><span className="font-semibold text-blue-300">Deepseek</span> - All Features</p>
                     <div className="text-sm text-gray-300 space-y-1">
                       <p>• Code Refactoring</p>
                       <p>• Custom File Generation</p>

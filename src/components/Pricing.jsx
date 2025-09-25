@@ -302,7 +302,7 @@ const Pricing = () => {
             </h2>
             
             <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-              All features included in both plans. Free users get Deepseek & Qwen via OpenRouter, Pro users get GPT-5-mini.
+              All features included in both plans. Free users get Deepseek  via OpenRouter, Pro users get GPT-5-mini.
             </p>
 
             {/* Authentication Status Indicator */}
@@ -352,7 +352,7 @@ const Pricing = () => {
                 <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-3 mb-4">
                   <div className="flex items-center justify-center text-blue-400 font-semibold mb-1">
                     <Bot className="w-5 h-5 mr-2" />
-                    Deepseek & Qwen via OpenRouter
+                    Deepseek  via OpenRouter
                   </div>
                   <p className="text-xs text-gray-400">Use your OpenRouter API key for free models</p>
                 </div>

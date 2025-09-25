@@ -115,7 +115,7 @@ const TermsOfService = () => {
               </div>
               <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
                 <li>Requires your own <strong>OpenRouter API key</strong></li>
-                <li>Access to <strong>Qwen</strong> and <strong>Deepseek</strong> AI models</li>
+                <li>Access to  <strong>Deepseek</strong> AI model</li>
                 <li><strong>10 uses per day</strong> (resets daily at midnight)</li>
                 <li>All core features included (same as Pro)</li>
                 <li>Code refactoring and optimization</li>
@@ -146,7 +146,7 @@ const TermsOfService = () => {
             </div>
 
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>Key Differences:</strong> Both plans offer identical features. Free users bring their own OpenRouter API key and can use Qwen/Deepseek models, while Pro users generate an API key from our website to access GPT-5-mini with managed AI model access.
+              <strong>Key Differences:</strong> Both plans offer identical features. Free users bring their own OpenRouter API key and can use Deepseek model, while Pro users generate an API key from our website to access GPT-5-mini with managed AI model access.
             </p>
             
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -181,7 +181,7 @@ const TermsOfService = () => {
               <strong>Subscription Cancellation:</strong> You may cancel your Pro subscription at any time to prevent future charges, but you will continue to have access to Pro features until the end of your current billing period. No refund will be provided for the remaining portion of your subscription.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              <strong>Free Trial:</strong> We recommend starting with our Free plan to evaluate the service. You'll need to set up your own OpenRouter API key, but you'll have access to all the same features as Pro users with Qwen and Deepseek models.
+              <strong>Free Trial:</strong> We recommend starting with our Free plan to evaluate the service. You'll need to set up your own OpenRouter API key, but you'll have access to all the same features as Pro users with   Deepseek model.
             </p>
           </div>
 
@@ -192,7 +192,7 @@ const TermsOfService = () => {
               <strong>Pro Plan Billing:</strong> Pro subscriptions are billed monthly in advance. Payments are processed through our secure payment provider.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>Free Plan Costs:</strong> Free users are responsible for their own OpenRouter API usage costs, which are charged directly by OpenRouter based on your usage of Qwen and Deepseek models.
+              <strong>Free Plan Costs:</strong> Free users are responsible for their own OpenRouter API usage costs, which are charged directly by OpenRouter based on your usage of  Deepseek model.
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
               <li>Monthly subscriptions automatically renew unless cancelled</li>
@@ -233,7 +233,7 @@ const TermsOfService = () => {
               <strong>Service Availability:</strong> We strive for high availability but cannot guarantee uninterrupted service.
             </p>
             <p className="text-gray-300 leading-relaxed mb-4">
-              <strong>AI Suggestions:</strong> Our AI models (Qwen, Deepseek, and GPT-5-mini) provide suggestions for refactoring, optimization, and file generation based on best practices, but you remain responsible for reviewing and testing all changes and generated code.
+              <strong>AI Suggestions:</strong> Our AI models (Deepseek, and GPT-5-mini) provide suggestions for refactoring, optimization, and file generation based on best practices, but you remain responsible for reviewing and testing all changes and generated code.
             </p>
             <p className="text-gray-300 leading-relaxed">
               <strong>Limitation of Liability:</strong> Forge is provided "as is" without warranties. We are not liable for any damages arising from the use of our service, including but not limited to code changes, security vulnerabilities, or business losses.
