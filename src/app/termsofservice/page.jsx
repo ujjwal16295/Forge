@@ -79,9 +79,6 @@ const TermsOfService = () => {
               <li>Reporting any suspected unauthorized use immediately</li>
               <li>All activities that occur using your API access</li>
             </ul>
-            <p className="text-gray-300 leading-relaxed">
-              <strong>API Key Security:</strong> Your OpenRouter API key is stored securely and used only for processing your requests and tracking usage. We do not access or use your key for any other purposes.
-            </p>
           </div>
 
           {/* Section 4 */}
@@ -98,7 +95,7 @@ const TermsOfService = () => {
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 ml-4">
               <li>Your email address (for account identification)</li>
-              <li>Your API key (for service authentication)</li>
+              <li>Your API key  for pro users (for service authentication)</li>
               <li>Usage metrics (API call counts and usage statistics)</li>
             </ul>
           </div>

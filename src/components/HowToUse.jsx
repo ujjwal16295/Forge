@@ -359,22 +359,14 @@ export const HowToUse = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
-                    <Key className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium mb-1">Step 3: Add to Website</p>
-                    <p className="text-gray-400 text-sm">Paste your OpenRouter API key in the API Key tab on this website</p>
-                  </div>
-                </div>
+
                 
                 <div className="flex items-start space-x-4">
                   <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 p-2 rounded-lg flex-shrink-0 mt-0.5">
                     <CheckCircle className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium mb-1">Step 4: Use in Extension</p>
+                    <p className="text-white font-medium mb-1">Step 3: Use in Extension</p>
                     <p className="text-gray-400 text-sm">Copy your API key from the website and paste it in the extension's API Key tab</p>
                   </div>
                 </div>
@@ -429,17 +421,6 @@ export const HowToUse = () => {
             </div>
           </div>
 
-          {/* Additional Info */}
-          <div className="mt-8 text-center">
-            <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 p-6 rounded-2xl border border-blue-500/20 max-w-4xl mx-auto">
-              <h5 className="text-lg font-bold mb-2 text-white">Important Note</h5>
-              <p className="text-gray-300 leading-relaxed">
-                Your API key is securely stored locally and never shared with third parties. 
-                Make sure to keep your API key confidential and don't share it with others. 
-                If you suspect your key has been compromised, generate a new one immediately.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Steps to Use Extension */}
