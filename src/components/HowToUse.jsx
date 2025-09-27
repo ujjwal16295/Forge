@@ -34,20 +34,27 @@ export const HowToUse = () => {
     },
     {
       id: 4,
+      image: "/login.png",
+      description: [
+        "login using github"
+      ]
+    },
+    {
+      id: 5,
       image: "/fourth.png",
       description: [
         "Paste Your Api Key",
       ]
     },
     {
-      id: 5,
+      id:6,
       image: "/fifth.png",
       description: [
         "Click On Refactor Button",
       ]
     },
     {
-        id: 6,
+        id: 7,
         image: "/sixth.png",
         description: [
           "Always Reload After Any Operation",
